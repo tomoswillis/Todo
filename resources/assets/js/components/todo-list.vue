@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p>tomos.</p>
+		<p>hello.</p>
 	</div>
 </template>
 
