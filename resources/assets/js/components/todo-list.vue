@@ -201,7 +201,7 @@
 				this.newTodo = '';
 				//	This will add one and update the idForTodo in the data object
 				this.idForTodo += 1;
-				return this.todos.sort(this.due);
+				// return this.todos.sort(this.due);
 			},
 
 			findTodo(i) {
