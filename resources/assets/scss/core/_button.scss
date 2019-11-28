@@ -15,7 +15,9 @@ button,
 		text-base
 		font-normal
 		leading-none
-		no-underline;
+		no-underline
+		w-40
+		rounded;
 	-webkit-tap-highlight-color: transparent;
 
 	&[disabled] {

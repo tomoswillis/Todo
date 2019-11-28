@@ -1,92 +1,110 @@
 <template>
-	<div>
+	<div class="e-container mx-auto sm:w-full md:w-3/5">
+		<h2 class="text-center e-h1 mt-10 mb-5">
+			My Todo List
+		</h2>
 		<!--input (text area// V-model takes the input (Value and input) and applys it to the data object. @keyup.enter runs the addTodo funtion)  -->
 		<input
 			v-model="newTodo"
 			type="text"
-			class="todo-input"
+			class="todo-input e-input rounded mb-5"
 			placeholder="What needs to be done"
 			@keyup.enter="addTodo"
 		>
-
-		<div
-			v-for="(todo, index) in todosFiltered"
-			:key="todo.id"
-			class="todo-item flex justify-between"
-		>
-			<div class="todo-item-left">
-				<input v-model="todo.completed" type="checkbox">
-				<!-- v-text is the same as {{ some item }} -->
-				<div
-					v-if="!todo.editing"
-					:class="{ 'line-through': todo.completed }"
-					@click="editTodo(todo.id)"
-					v-text="todo.title"
-				/>
-
-				<!-- blur is then something is no longer focused -->
-				<input
-					v-else
-					v-model="todo.title"
-					v-focus
-					type="text"
-					class="todo-item-edit"
-					@blur="doneEdit(todo.id)"
-					@keyup.enter="doneEdit(todo.id)"
-					@keyup.esc="cancleEdit(todo.id)"
-				>
-			</div>
-			<div class="remove-item" @click="removeTodo(index)">
-				&times;
-			</div>
+		<h2 class="flex-none text-base mb-2 text-grey-600">
+			Filters:
+		</h2>
+		<div class="flex mb-5 button-filters">
+			<button
+				class="e-button"
+				:class="{ active: filter === 'all' }"
+				@click="filter = 'all' "
+			>
+				All
+			</button>
+			<button
+				class="e-button ml-2"
+				:class="{ active: filter === 'active' }"
+				@click="filter = 'Active' "
+			>
+				Active
+			</button>
+			<button
+				class="e-button ml-2"
+				:class="{ active: filter === 'completed' }"
+				@click="filter = 'completed' "
+			>
+				Completed
+			</button>
 		</div>
-		<div class="filters">
-			<div>
-				<label>
+		<transition-group
+			name="bounce"
+			enter-active-class="animated slideInUp"
+			leave-active-class="animated slideOutRight"
+		>
+			<div
+				v-for="(todo, index) in todosFiltered"
+				:key="todo.id"
+				class="todo-item flex text-xl flex flex-row items-center p-2 bg-grey-200 mb-2 rounded"
+			>
+				<div
+					class="w-12 text-center"
+					style="border-right: 1px solid grey"
+					v-text="todo.due"
+				/>
+				<div class="todo-item-left flex items-center flex-auto ml-5">
+					<input v-model="todo.completed" class="tick" type="checkbox">
+					<!-- v-text is the same as {{ some item }} -->
+					<div
+						v-if="!todo.editing"
+						class="ml-2 e-4"
+						:class="{ 'line-through text-gray-100': todo.completed }"
+						@click="editTodo(todo.id)"
+						v-text="todo.title"
+					/>
+
+					<!-- blur is then something is no longer focused -->
 					<input
-						type="checkbox"
-						:checked="!anyRemaining"
-						@change="checkAllTodos"
-					> Check All
-				</label>
-			</div>
-			<div>
-				<button
-					class="e-button"
-					:class="{ active: filter === 'all' }"
-					@click="filter = 'all' "
-				>
-					All
-				</button>
-				<button
-					class="e-button"
-					:class="{ active: filter === 'active' }"
-					@click="filter = 'Active' "
-				>
-					Active
-				</button>
-				<button
-					class="e-button"
-					:class="{ active: filter === 'completed' }"
-					@click="filter = 'completed' "
-				>
-					Completed
-				</button>
-			</div>
-			<div>
-				<transition name="fade">
-					<button
-						v-if="showClearCompleted"
-						class="e-button"
-						@click="clearCompleted"
+						v-else
+						v-model="todo.title"
+						v-focus
+						type="text"
+						class="todo-item-edit ml-5 bg-transparent text-grey-600"
+						@blur="doneEdit(todo.id)"
+						@keyup.enter="doneEdit(todo.id)"
+						@keyup.esc="cancleEdit(todo.id)"
 					>
-						Clear Completed
-					</button>
-				</transition>
+				</div>
+				<div class="remove-item" @click="removeTodo(index)">
+					&times;
+				</div>
 			</div>
-			<div>
-				{{ remaining }} Items Left
+		</transition-group>
+		<hr class="mt-5">
+		<div class="filters">
+			<div class="flex justify-between my-2">
+				<div>
+					<label>
+						<input
+							type="checkbox"
+							:checked="!anyRemaining"
+							@change="checkAllTodos"
+						> Check All
+					</label>
+				</div>
+				<div>
+					{{ remaining }} Items Left
+				</div>
 			</div>
+			<transition name="fade">
+				<button
+					v-if="showClearCompleted"
+					class="e-button w-full mt-2"
+					@click="clearCompleted"
+				>
+					Clear Completed
+				</button>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -106,21 +124,31 @@
 		data() {
 			return {
 				newTodo: '',
-				idForTodo: 3,
+				idForTodo: 4,
 				beforeEditCache: '',
 				filter: 'all',
+				due: '1',
 				todos: [
 					{
 						id: 1,
 						title: 'Finish task',
 						completed: false,
 						editing: false,
+						due: 23,
 					},
 					{
 						id: 2,
 						title: 'Go for a run',
 						completed: false,
 						editing: false,
+						due: 24,
+					},
+					{
+						id: 3,
+						title: 'Finish Making Todo App',
+						completed: false,
+						editing: false,
+						due: 21,
 					},
 				],
 			};
@@ -166,12 +194,14 @@
 					id: this.idForTodo,
 					title: this.newTodo,
 					completed: false,
+					due: this.due,
 				});
 
 				//	this clears the newTodo
 				this.newTodo = '';
 				//	This will add one and update the idForTodo in the data object
 				this.idForTodo += 1;
+				return this.todos.sort(this.due);
 			},
 
 			findTodo(i) {
@@ -215,5 +245,20 @@
 
 .fade-enter, .fade-leave-to {
 	opacity: 0;
+}
+
+.remove-item:hover{
+	cursor: pointer;
+	transition: all .2s;
+	@apply
+		text-red;
+}
+.todo-item{
+	animation-duration: 0.4s;
+}
+.button-filters button{
+	width: 8em;
+	padding: 0.8em;
+	font-size: 0.9em;
 }
 </style>
