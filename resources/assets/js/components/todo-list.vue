@@ -7,10 +7,21 @@
 		<input
 			v-model="newTodo"
 			type="text"
-			class="todo-input e-input rounded mb-5"
+			class="todo-input e-input rounded mb-2"
 			placeholder="What needs to be done"
 			@keyup.enter="addTodo"
 		>
+		<div class="flex w-64 items-center mb-5">
+			<h2 class="flex-none text-base text-grey-600">
+				Due Date:
+			</h2>
+			<input
+				v-model="due"
+				v-focus
+				type="number"
+				class="todo-input-date w-10 text-center rounded"
+			>
+		</div>
 		<h2 class="flex-none text-base mb-2 text-grey-600">
 			Filters:
 		</h2>
@@ -75,9 +86,17 @@
 						@keyup.esc="cancleEdit(todo.id)"
 					>
 				</div>
-				<div class="remove-item" @click="removeTodo(index)">
+				<!-- <input
+					v-model="todo.due"
+					v-focus
+					type="number"
+					@blur="doneEdit(todo.id)"
+					@keyup.enter="doneEdit(todo.id)"
+					@keyup.esc="cancleEdit(todo.id)"
+				> -->
+				<button class="remove-item" @click="removeTodo(index)">
 					&times;
-				</div>
+				</button>
 			</div>
 		</transition-group>
 		<hr class="mt-5">
@@ -127,7 +146,7 @@
 				idForTodo: 4,
 				beforeEditCache: '',
 				filter: 'all',
-				due: '1',
+				due: 1,
 				todos: [
 					{
 						id: 1,
@@ -163,12 +182,12 @@
 			},
 			todosFiltered() {
 				if (this.Filter === 'all') {
-					return this.todos;
+					return this.todos.slice().sort((a, b) => a.due - b.due);
 				} else if (this.filter === 'active') {
 					return this.todos.filter(todo => !todo.completed);
 				} else if (this.filter === 'completed') {
 					return this.todos.filter(todo => todo.completed);
-				} return this.todos;
+				} return this.todos.slice().sort((a, b) => a.due - b.due);
 			},
 			showClearCompleted() {
 				return this.todos.filter(todo => todo.completed).length > 0;
@@ -201,7 +220,7 @@
 				this.newTodo = '';
 				//	This will add one and update the idForTodo in the data object
 				this.idForTodo += 1;
-				// return this.todos.sort(this.due);
+				this.due = 1;
 			},
 
 			findTodo(i) {
@@ -260,5 +279,18 @@
 	width: 8em;
 	padding: 0.8em;
 	font-size: 0.9em;
+}
+
+.todo-input-date:focus{
+	border: 1px solid rgb(104, 104, 104);
+	@apply
+		;
+}
+
+.todo-input-date{
+	border: 1px solid rgb(180, 180, 180);
+	@apply
+			ml-1
+			px-2;
 }
 </style>
