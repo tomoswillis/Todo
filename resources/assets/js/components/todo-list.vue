@@ -1,49 +1,24 @@
 <template>
-	<div class="e-container mx-auto sm:w-full md:w-3/5">
-		<h2 class="text-center e-h1 mt-10 mb-5">
-			My Todo List
-		</h2>
-		<!--input (text area// V-model takes the input (Value and input) and applys it to the data object. @keyup.enter runs the addTodo funtion)  -->
-		<input
-			v-model="newTodo"
-			type="text"
-			class="todo-input e-input rounded mb-2"
-			placeholder="What needs to be done"
-			@keyup.enter="addTodo"
-		>
-		<div class="flex w-64 items-center mb-5">
-			<h2 class="flex-none text-base text-grey-600">
-				Due Date:
-			</h2>
-			<input
-				v-model="due"
-				v-focus
-				type="number"
-				class="todo-input-date w-10 text-center rounded"
-			>
-		</div>
+	<div>
 		<h2 class="flex-none text-base mb-2 text-grey-600">
 			Filters:
 		</h2>
 		<div class="flex mb-5 button-filters">
 			<button
 				class="e-button"
-				:class="{ active: filter === 'all' }"
-				@click="filter = 'all' "
+				@click="filterDueAss"
 			>
 				All
 			</button>
 			<button
 				class="e-button ml-2"
-				:class="{ active: filter === 'active' }"
-				@click="filter = 'Active' "
+				@click="filterDueDec"
 			>
 				Active
 			</button>
 			<button
 				class="e-button ml-2"
-				:class="{ active: filter === 'completed' }"
-				@click="filter = 'completed' "
+				@click="filterComp"
 			>
 				Completed
 			</button>
@@ -54,7 +29,7 @@
 			leave-active-class="animated slideOutRight"
 		>
 			<div
-				v-for="(todo, index) in todosFiltered"
+				v-for="todo in $data.todos"
 				:key="todo.id"
 				class="todo-item flex text-xl flex flex-row items-center p-2 bg-grey-200 mb-2 rounded"
 			>
@@ -94,7 +69,7 @@
 					@keyup.enter="doneEdit(todo.id)"
 					@keyup.esc="cancleEdit(todo.id)"
 				> -->
-				<button class="remove-item" @click="removeTodo(index)">
+				<button class="remove-item" @click="$emit('removeTodo', todo.id)">
 					&times;
 				</button>
 			</div>
@@ -130,46 +105,17 @@
 
 <script>
 	export default {
-		// name: 'todo-list',
-		directives: {
-			focus: {
-				// directive definition
-				inserted(el) {
-					el.focus();
-				},
+		props: {
+			initialList: {
+				type: Array,
+				default: () => {},
 			},
 		},
 
 		data() {
 			return {
-				newTodo: '',
-				idForTodo: 4,
 				beforeEditCache: '',
-				filter: 'all',
-				due: 1,
-				todos: [
-					{
-						id: 1,
-						title: 'Finish task',
-						completed: false,
-						editing: false,
-						due: 23,
-					},
-					{
-						id: 2,
-						title: 'Go for a run',
-						completed: false,
-						editing: false,
-						due: 24,
-					},
-					{
-						id: 3,
-						title: 'Finish Making Todo App',
-						completed: false,
-						editing: false,
-						due: 21,
-					},
-				],
+				todos: this.$props.initialList,
 			};
 		},
 
@@ -180,18 +126,26 @@
 			anyRemaining() {
 				return this.remaining !== 0;
 			},
-			todosFiltered() {
-				if (this.Filter === 'all') {
-					return this.todos.slice().sort((a, b) => a.due - b.due);
-				} else if (this.filter === 'active') {
-					return this.todos.filter(todo => !todo.completed);
-				} else if (this.filter === 'completed') {
-					return this.todos.filter(todo => todo.completed);
-				} return this.todos.slice().sort((a, b) => a.due - b.due);
+			// todosFiltered() {
+			// 	if (this.Filter === 'all') {
+			// 		return this.todos.slice().sort((a, b) => a.due - b.due);
+			// 	} else if (this.filter === 'active') {
+			// 		return this.todos.filter(todo => !todo.completed);
+			// 	} else if (this.filter === 'completed') {
+			// 		return this.todos.filter(todo => todo.completed);
+			// 	} return this.todos;
+			// },
+		},
+
+		watch: {
+			initialList() {
+				this.todos = this.initialList;
+				this.filterDueAss();
 			},
-			showClearCompleted() {
-				return this.todos.filter(todo => todo.completed).length > 0;
-			},
+		},
+
+		mounted() {
+			this.filterDueAss();
 		},
 
 		methods: {
@@ -203,33 +157,8 @@
 			 * a value that is === to 0.
 			 * If it has then return
 			 */
-			//	if there is a string carry on ----->
-			addTodo() {
-				if (this.newTodo.trim().length === 0) return;
-
-				//	.push pushes the items in brackets to the array, in this case todos
-				//	this will create a new item in the array
-				this.todos.push({
-					id: this.idForTodo,
-					title: this.newTodo,
-					completed: false,
-					due: this.due,
-				});
-
-				//	this clears the newTodo
-				this.newTodo = '';
-				//	This will add one and update the idForTodo in the data object
-				this.idForTodo += 1;
-				this.due = 1;
-			},
-
 			findTodo(i) {
 				return this.todos.find(todo => todo.id === i);
-			},
-
-			removeTodo(index) {
-				this.todos.splice(index, 1);
-			//	.splice
 			},
 
 			editTodo(v) {
@@ -251,6 +180,25 @@
 			},
 			clearCompleted() {
 				this.todos = this.todos.filter(todo => !todo.completed);
+			},
+			filterDueAss() {
+				this.todos = this.todos.slice().sort((a, b) => a.due - b.due);
+			},
+
+			filterDueDec() {
+				this.todos = this.todos.slice().sort((a, b) => b.due - a.due);
+			},
+
+			filterNotComp() {
+				this.todos = this.todos.filter(todo => !todo.completed);
+			},
+
+			filterComp(){
+				this.todos = this.todos.filter(todo => todo.completed);
+			},
+
+			showClearCompleted() {
+				this.todos = this.todos.filter(todo => todo.completed).length > 0;
 			},
 		},
 	};
