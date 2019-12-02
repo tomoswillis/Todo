@@ -3,7 +3,8 @@
 		<h2 class="text-center e-h1 mt-10 mb-5">
 			My Todo List ... Maybe Calender
 		</h2>
-		<!--input (text area// V-model takes the input (Value and input) and applys it to the data object. @keyup.enter runs the addTodo funtion)  -->
+		<!--input (text area// V-model takes the input (Value and input)
+		and applys it to the data object. @keyup.enter runs the addTodo funtion)  -->
 		<input
 			v-model="newTodo"
 			type="text"

@@ -1,5 +1,9 @@
 <template>
 	<div>
+		<select @change="onChange($event)">
+			<option>ass</option>
+			<option>dec</option>
+		</select>
 		<h2 class="flex-none text-base mb-2 text-grey-600">
 			Filters:
 		</h2>
@@ -8,7 +12,7 @@
 				class="e-button"
 				@click="filterDueAss"
 			>
-				All
+				Date Assending
 			</button>
 			<button
 				class="e-button ml-2"
@@ -116,6 +120,7 @@
 			return {
 				beforeEditCache: '',
 				todos: this.$props.initialList,
+				sortOut:'',
 			};
 		},
 
@@ -182,24 +187,30 @@
 				this.todos = this.todos.filter(todo => !todo.completed);
 			},
 			filterDueAss() {
+				this.todos = this.initialList;
 				this.todos = this.todos.slice().sort((a, b) => a.due - b.due);
 			},
 
 			filterDueDec() {
 				this.todos = this.todos.slice().sort((a, b) => b.due - a.due);
+				console.log(this.sortOut);
 			},
 
 			filterNotComp() {
 				this.todos = this.todos.filter(todo => !todo.completed);
 			},
 
-			filterComp(){
+			filterComp() {
 				this.todos = this.todos.filter(todo => todo.completed);
 			},
 
 			showClearCompleted() {
 				this.todos = this.todos.filter(todo => todo.completed).length > 0;
 			},
+
+			onChange(event) {
+			this.sortOut = (event.target.value);
+        	},
 		},
 	};
 </script>
