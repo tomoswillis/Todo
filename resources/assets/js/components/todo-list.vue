@@ -104,7 +104,7 @@
 				<button
 					v-if="showClearCompleted"
 					class="e-button w-full mt-2"
-					@click="clearCompleted"
+					@click="$emit('re')"
 				>
 					Clear Completed
 				</button>
@@ -176,7 +176,7 @@
 			 * If it has then return
 			 */
 			findTodo(i) {
-				return this.todos.find(todo => todo.id === i);
+				return this.initialList.find(todo => todo.id === i);
 			},
 
 			editTodo(v) {
@@ -198,9 +198,9 @@
 				this.todos.forEach(todo => todo.completed = event.target.checked);
 			},
 
-			clearCompleted() {
-				this.todos = this.todos.filter(todo => !todo.completed);
-			},
+			// clearCompleted() {
+			// 	this.todos = this.todos.filter(todo => !todo.completed);
+			// },
 
 			filterDueAss() {
 				this.todos = this.initialList;

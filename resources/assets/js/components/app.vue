@@ -27,6 +27,7 @@
 		<todo-list
 			:initial-list="$data.list"
 			@removeTodo="removeTodo"
+			@re="re"
 		/>
 	</div>
 </template>
@@ -57,7 +58,7 @@
 				list: [
 					{
 						id: 1,
-						title: 'Finish task',
+						title: 'Learn Vue',
 						completed: false,
 						editing: false,
 						due: 23,
@@ -78,14 +79,14 @@
 					},
 					{
 						id: 4,
-						title: 'going',
+						title: 'Dive!',
 						completed: false,
 						editing: false,
 						due: 29,
 					},
 					{
 						id: 5,
-						title: 'home',
+						title: 'Party',
 						completed: false,
 						editing: false,
 						due: 12,
@@ -128,6 +129,10 @@
 						this.list.splice(i, 1);
 					}
 				}
+			},
+
+			re() {
+				this.list = this.list.splice(list => !list.completed);
 			},
 		},
 	};
