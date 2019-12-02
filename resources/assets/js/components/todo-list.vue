@@ -1,14 +1,10 @@
 <template>
 	<div>
-		<select @change="onChange($event)">
-			<option>Assending</option>
-			<option>Decending</option>
-		</select>
-		<h2 class="flex-none text-base mb-2 text-grey-600">
-			Filters:
-		</h2>
 		<div class="flex mb-5 button-filters">
-			<button
+			<h2 class="text-base mr-2 text-grey-600">
+				Sort:
+			</h2>
+			<!-- <button
 				class="e-button"
 				@click="filterDueAss"
 			>
@@ -19,13 +15,18 @@
 				@click="filterDueDec"
 			>
 				Date Decending
-			</button>
-			<button
+			</button> -->
+			<select @change="onChange($event)">
+				<option>Assending</option>
+				<option>Decending</option>
+				<option>Completed</option>
+			</select>
+			<!-- <button
 				class="e-button ml-2"
 				@click="filterComp"
 			>
 				Completed
-			</button>
+			</button> -->
 		</div>
 		<transition-group
 			name="bounce"
@@ -38,10 +39,23 @@
 				class="todo-item flex text-xl flex flex-row items-center p-2 bg-grey-200 mb-2 rounded"
 			>
 				<div
+					v-if="!todo.editing"
 					class="w-12 text-center"
 					style="border-right: 1px solid grey"
+					@click="editTodo(todo.id)"
 					v-text="todo.due"
 				/>
+				<input
+					v-else
+					v-model="todo.due"
+					v-focus
+					style="border-right: 1px solid grey"
+					class="bg-transparent text-grey-600 w-12 text-center"
+					type="number"
+					@blur="doneEdit(todo.id)"
+					@keyup.enter="doneEdit(todo.id)"
+					@keyup.esc="cancleEdit(todo.id)"
+				>
 				<div class="todo-item-left flex items-center flex-auto ml-5">
 					<input v-model="todo.completed" class="tick" type="checkbox">
 					<!-- v-text is the same as {{ some item }} -->
@@ -65,14 +79,6 @@
 						@keyup.esc="cancleEdit(todo.id)"
 					>
 				</div>
-				<!-- <input
-					v-model="todo.due"
-					v-focus
-					type="number"
-					@blur="doneEdit(todo.id)"
-					@keyup.enter="doneEdit(todo.id)"
-					@keyup.esc="cancleEdit(todo.id)"
-				> -->
 				<button class="remove-item" @click="$emit('removeTodo', todo.id)">
 					&times;
 				</button>
@@ -150,7 +156,8 @@
 
 			sortOut() {
 				if (this.sortOut === 'Assending') this.filterDueAss();
-				if (this.sortOut === 'Decending')this.filterDueDec();
+				if (this.sortOut === 'Decending') this.filterDueDec();
+				if (this.sortOut === 'Completed') this.filterComp();
 				return 'Nothing';
 			},
 		},

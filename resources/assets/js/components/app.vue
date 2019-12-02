@@ -19,8 +19,9 @@
 			<input
 				v-model="due"
 				v-focus
+				max="31"
 				type="number"
-				class="todo-input-date w-10 text-center rounded"
+				class="todo-input-date w-1/5 text-center rounded"
 			>
 		</div>
 		<todo-list
