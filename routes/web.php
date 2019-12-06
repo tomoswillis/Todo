@@ -13,3 +13,6 @@ Route::get('/tasks/{categoryId}')
     ->uses('Tasks\TaskController@show')
     ->name('task.show');
 
+Route::get('/foo')
+    ->uses('Tasks\FooController@show')
+    ->name('foo.show');
