@@ -10,6 +10,6 @@ Route::get('/categories')
 
 
 Route::get('/tasks')
-    ->uses('Tasks\TasksController@show')
-    ->name('tasks.show');
+    ->uses('Tasks\TaskController@show')
+    ->name('task.show');
 

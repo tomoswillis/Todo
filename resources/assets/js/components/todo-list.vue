@@ -265,6 +265,7 @@
 	border: 1px solid rgb(180, 180, 180);
 	@apply
 			ml-1
-			px-2;
+			px-2
+			;
 }
 </style>

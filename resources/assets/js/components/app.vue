@@ -54,7 +54,7 @@
 				newTodo: '',
 				idForTodo: 6,
 				beforeEditCache: '',
-				due: 1,
+				due: 2,
 				list: [
 					{
 						id: 1,
@@ -120,7 +120,7 @@
 				this.newTodo = '';
 				//	This will add one and update the idForTodo in the data object
 				this.idForTodo += 1;
-				this.due = 1;
+				this.due = 2;
 			},
 
 			removeTodo(id) {
