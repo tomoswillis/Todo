@@ -2,10 +2,10 @@
 
 @section('content')
 
-    @foreach($test['test'] as $task
+    @foreach($model['tasks'] as $task)
         <ul>
             <li>
-                {{ $task['task'] }}
+                {{ $task['title'] }}
             </li>
         </ul>
     @endforeach

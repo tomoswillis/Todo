@@ -15,4 +15,9 @@ class Task extends Model
         'due_date',
         'completed',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo('\App\Domain\Tasks\Category');
+    }
 }

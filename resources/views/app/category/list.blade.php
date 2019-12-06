@@ -5,7 +5,7 @@
     @foreach($model['categories'] as $category)
         <ul>
             <li>
-                {{ $category['category'] }}
+                {{ $category['title'] }}
             </li>
         </ul>
     @endforeach

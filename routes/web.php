@@ -9,7 +9,7 @@ Route::get('/categories')
     ->name('categories.show');
 
 
-Route::get('/tasks')
+Route::get('/tasks/{categoryId}')
     ->uses('Tasks\TaskController@show')
     ->name('task.show');
 

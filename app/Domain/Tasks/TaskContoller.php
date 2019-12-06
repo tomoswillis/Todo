@@ -11,11 +11,13 @@ class TaskController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show()
+    public function show($categoryId)
     {
-        $test['tasks'] = task::all()->toArray();
+        $model = [
+            'tasks' => Task::where('category_id', $categoryId)->get(),
+        ];
 
         return view('app/category/taskList')
-            ->with('test', $test);
+            ->with('model', $model);
     }
 }
