@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function show()
     {
-        $model['categories'] = Category::all()->toArray();
+        $model = [
+            'categories' => Category::with(['tasks'])->get()
+        ];
 
         return view('app/category/list')
             ->with('model', $model);

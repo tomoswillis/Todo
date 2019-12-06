@@ -6,6 +6,13 @@
         <ul>
             <li>
                 {{ $category['category'] }}
+                <ul> 
+                    @foreach ($category->tasks as $task)
+                        <li>
+                            {{ $task['title'] }}
+                        </li>
+                    @endforeach
+                </ul>
             </li>
         </ul>
     @endforeach

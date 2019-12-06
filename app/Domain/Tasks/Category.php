@@ -12,4 +12,9 @@ class Category extends Model
     protected $fillable = [
         'category',
     ];
+
+    public function tasks()
+    {
+        return $this->hasMany('\App\Domain\Tasks\Task');
+    }
 }
