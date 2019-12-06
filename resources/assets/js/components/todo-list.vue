@@ -115,6 +115,15 @@
 
 <script>
 	export default {
+		directives: {
+			focus: {
+				// directive definition
+				inserted(el) {
+					el.focus();
+				},
+			},
+		},
+
 		props: {
 			initialList: {
 				type: Array,
