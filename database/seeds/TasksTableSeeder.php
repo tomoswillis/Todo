@@ -13,10 +13,30 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         DB::table('tasks')->insert([
-            'title' => 'seededTest',
+            [
+            'title' => 'seeded task',
             'category_id' => 1,
+            'department_id' => 1,
+            'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
             'due_date' => now()->addWeek(),
-            'completed' => false, 
+            'completed' => false,
+            ],
+            [
+            'title' => 'seeded task two',
+            'category_id' => 1,
+            'department_id' => 1,
+            'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+            'due_date' => now()->addWeek(),
+            'completed' => false,
+            ],
+            [
+            'title' => 'seeded task three',
+            'category_id' => 1,
+            'department_id' => 1,
+            'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+            'due_date' => now()->addWeek(),
+            'completed' => false,
+            ]
         ]);
     }
 }
