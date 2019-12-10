@@ -12,6 +12,8 @@
 <link rel="apple-touch-icon" href="/static/img/meta/favicon-180.png">
 <link rel="mask-icon" href="/static/img/meta/mask-icon.svg" color="#000000">
 
+<link rel="stylesheet" href="https://use.typekit.net/ifs3wgp.css">
+
 <link rel="stylesheet" href="{{ isset($mix_stylesheet) && !$mix_stylesheet ? $stylesheet : mix($stylesheet) }}">
 
 <meta name="twitter:card" content="summary_large_image">

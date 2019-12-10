@@ -14,10 +14,10 @@ class DepartmentsTableSeeder extends Seeder
     {
         DB::table('departments')->insert([
             [
-                'title' => 'Seeded department 1',
+                'title' => 'UX',
             ],
             [
-                'title' => 'Seeded department 2',
+                'title' => 'Backend',
             ]
         ]);
     }

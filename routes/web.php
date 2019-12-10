@@ -13,9 +13,9 @@ Route::get('/tasks/{task}')
     ->name('task.show');
 
 Route::get('/categories')
-    ->uses('Tasks\CategoryController@show')
+    ->uses('Categories\CategoryController@show')
     ->name('categories.show');
   
 Route::get('/departments')
-    ->uses('Tasks\DepartmentController@show')
+    ->uses('Departments\DepartmentController@show')
     ->name('departments.show');

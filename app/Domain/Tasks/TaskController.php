@@ -19,6 +19,8 @@ class TaskController extends Controller
                 ->toArray(),
         ];
 
+        // dd($model['tasks']);
+
         return view('app/task/list')
             ->with('model', $model);
     }

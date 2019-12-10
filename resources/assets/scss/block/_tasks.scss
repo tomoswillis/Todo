@@ -1,0 +1,64 @@
+
+
+.tasks{
+    font-family: nunito, sans-serif;
+    &--title{
+        font-weight: 700;
+        @apply
+            uppercase;
+    }
+   
+    &--day{
+        font-weight: 800;  
+           
+    }
+
+    &--month{
+        font-weight: 400;
+        @apply
+            uppercase
+            text-sm;
+    }
+
+    &--description{
+        font-weight: 300;
+        width: 20rem;
+    }
+
+    &--department{
+        font-family: rift-soft, sans-serif;
+        font-weight: 500;
+        
+        @apply
+         tracking-wide
+         ;
+
+         &--bg{
+            background-color:rgba(255, 255, 255, 0.2);
+         }
+    }
+
+    &--bg{
+        background: rgb(217,85,109);
+        background: linear-gradient(133deg, rgba(217,85,109,1) 0%, rgba(217,85,132,1) 94%);
+    }
+
+    &--transparent-bg{
+        background-color:rgba(255, 255, 255, 0.4);
+    }
+
+    &--shadow{
+        -webkit-box-shadow: -1px 2px 24px -5px px rgba(0,0,0,0.3);
+        -moz-box-shadow: -1px 2px 24px -5px px rgba(0,0,0,0.3);
+        box-shadow: -1px 2px 24px -5px  rgba(0,0,0,0.3);
+    }
+
+}
+
+.rounded-xl{
+    border-radius: 1em;
+}
+
+.width-holder{
+    width: 550px;
+}
