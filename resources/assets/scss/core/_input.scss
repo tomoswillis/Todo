@@ -14,7 +14,8 @@
 	}
 
 	&::placeholder {
-		@apply text-grey-500;
+		color: white;
+		opacity: 0.5;
 	}
 
 	&.is-invalid {

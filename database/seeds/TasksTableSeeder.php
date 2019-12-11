@@ -19,7 +19,7 @@ class TasksTableSeeder extends Seeder
             'department_id' => 1,
             'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
             'due_date' => now()->addWeek(),
-            'completed' => false,
+            'progress' => 'Planning',
             ],
             [
             'title' => 'seeded task two',
@@ -27,7 +27,7 @@ class TasksTableSeeder extends Seeder
             'department_id' => 1,
             'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
             'due_date' => now()->addWeek(),
-            'completed' => false,
+            'progress' => 'Planning',
             ],
             [
             'title' => 'seeded task three',
@@ -35,7 +35,7 @@ class TasksTableSeeder extends Seeder
             'department_id' => 1,
             'description' => 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
             'due_date' => now()->addWeek(),
-            'completed' => false,
+            'progress' => 'Planning',
             ]
         ]);
     }

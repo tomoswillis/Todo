@@ -1,12 +1,14 @@
 <?php
 
-// Route::get('/')
-//     ->uses('Home\HomeController')
-//     ->name('home.show');
+use Illuminate\Support\Facades\Route;
 
 Route::get('/')
     ->uses('Tasks\TaskController@index')
     ->name('task.index');
+
+Route::post('/task/store')
+    ->uses('Tasks\TaskController@store')
+    ->name('task.store');
 
 Route::get('/tasks/{task}')
     ->uses('Tasks\TaskController@show')

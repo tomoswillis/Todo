@@ -18,7 +18,7 @@ class Task extends Model
         'department_id',
         'description',
         'due_date',
-        'completed',
+        'progress',
     ];
 
     // Relationships

@@ -3,6 +3,7 @@
 namespace App\Domain\Tasks;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -11,15 +12,25 @@ class TaskController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $order = 'desc';
+
+        if ($request->input('order')) {
+            $order = $request->input('order');
+        }        
+
         $model = [
             'tasks' => Task::with('department')
+                ->orderBy('due_date', $order)
                 ->get()
                 ->toArray(),
+            'progress_flags' => [
+                'planning',
+                'completed',
+                'cancelled',
+            ],
         ];
-
-        // dd($model['tasks']);
 
         return view('app/task/list')
             ->with('model', $model);
@@ -39,5 +50,21 @@ class TaskController extends Controller
 
         return view('app/task/details')
             ->with('model', $model);
+    }
+
+
+    public function store(TaskRequest $request)
+    {
+        $data = $request->input();
+
+        Task::create([
+            'title' => $data['task'],
+            'description' => $data['description'],
+            'due_date' => $data['due'],
+            'category_id' => 1,
+            'department_id' => 1,
+            'progress' => strtolower($data['progress']),
+
+        ]);
     }
 }
