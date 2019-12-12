@@ -141,6 +141,3 @@
             </div>
         </form>
     </div>
-
-    <style>
-    </style>
