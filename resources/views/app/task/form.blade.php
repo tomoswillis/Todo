@@ -6,17 +6,22 @@
             input-tab--bg
             rounded-xl
             text-white
-            my-10
+            mb-10
+            mt-5
             py-5
             tasks
             relative
+            tasks--shadow
         ">
         <form class="e-container" method="POST" action="/task/store">
             @csrf
-            <div class="font-semibold inline-block px-6 py-2 rounded-lg tasks tasks--tab-title text-lg w-40 input-tab--color">
+            <div class="font-semibold inline-block px-6 py-2 tasks tasks--tab-title text-lg w-40 input-tab input-tab--color">
                 <h6>Add Task</h6>
             </div>
             {{--Task Title Input--}}
+            @error('task')
+                <div class="alert alert-danger" >{{ $message }}</div>
+            @enderror
             <input
                 type="text"
                 name="task"
@@ -33,9 +38,6 @@
                 "
                 placeholder="Next Todo"
             >
-            @error('task')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
             {{--Task Due Date--}}
             <div class="flex justify-between my-5">
                 <div class="flex-1">
@@ -119,7 +121,7 @@
                 </div>
             </div>
             {{--Task Description Input--}}
-            <div class="mt-8">
+            <div class="mt-8 flex flex-col items-center">
                 <textarea 
                     rows="2" 
                     cols="50"
@@ -137,7 +139,7 @@
                 >
                 </textarea>
 
-                <input type="submit" value="Submit" class="e-button">
+                <input type="submit" value="Add Task" class="e-button tasks uppercase mt-5 tasks--form--add-task rounded-lg">
             </div>
         </form>
     </div>

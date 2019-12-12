@@ -32,8 +32,13 @@ class TaskController extends Controller
             ],
         ];
 
+        $foo = [
+            'task' => Task::with('department')->find(1)->toArray(),
+        ];
+
         return view('app/task/list')
-            ->with('model', $model);
+            ->with('model', $model)
+            ->with('foo', $foo);
     }
 
     /**
@@ -42,10 +47,10 @@ class TaskController extends Controller
      * @param \App\Domain\Tasks\Task $task
      * @return \Illuminate\View\View
      */
-    public function show($task)
+    public function show()
     {
         $model = [
-            'task' => Task::find($task)->toArray(),
+            'task' => Task::find()->toArray(),
         ];
 
         return view('app/task/details')

@@ -1,13 +1,14 @@
-
-    {{-- <div class="e-container width-holder">
-        <h1 class="tasks tasks--title text-3xl">
+ <div class="e-container width-holder mb-5 mt-12 rounded-xl grey-grad-bg pt-10 pb-16">
+        <h1 class="tasks tasks--title text-3xl uppercase mb-3 text-medium">
             Due Today
         </h1>
         <div class="flex mb-10">
+            @foreach($foo as $task)
                 <div class="max-w-sm flex-auto items-center">
                     <div class="flex items-center">
-                        <h2 class="tasks tasks--title text-2xl">{{ $task['title'] }}</h2>
-                        <input type="checkbox" class="ml-2">
+
+                        
+                        <h2 class="tasks tasks--title text-2xl">{{ ucfirst($task['title']) }}</h2>
                     </div>
     
                     <div class="tasks tasks--department--bg  rounded-lg my-2 inline-block tasks--shadow">
@@ -32,9 +33,9 @@
                         </div>
     
                         <div class="flex flex-col-reverse justify-around relitive">
-                            <div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
+                            <div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24 text-white">
                                 <p>
-                                    {{ $task['department'] ['title'] }}
+                                    {{ $task['department']['title'] }}
                                 </p>
                             </div>
     
@@ -64,5 +65,11 @@
                         </h4>
                     </div>
                 </div>
+                 @endforeach
             </div>
-    </div> --}}
+                {{-- <div class="pb-16" style="margin: 0 auto;">
+                    <span class="bg-black w-2 h-2 rounded-full">0</span>
+                    <span class="bg-black w-2 h-2 rounded-full">0</span>
+                    <span class="bg-black w-2 h-2 rounded-full">0</span>
+                </div> --}}
+    </div>

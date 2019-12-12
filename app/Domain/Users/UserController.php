@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Categories;
+namespace App\Domain\Users;
 
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
     /**
      * Loads the Categories Page.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
     {
         $model = [];
         
-        $model['categories'] = Category::all()->toArray();
+        $model['users'] = User::all()->toArray();
 
-        return view('app/category/list')
+        return view('app/user/list')
             ->with('model', $model);
     }
 }
