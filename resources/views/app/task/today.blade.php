@@ -3,7 +3,8 @@
             Due Today
         </h1>
         <div class="flex mb-10">
-            @foreach($foo as $task)
+            @if(is_array($today))
+                @foreach($today as $task)
                 <div class="max-w-sm flex-auto items-center">
                     <div class="flex items-center">
 
@@ -65,6 +66,12 @@
                         </h4>
                     </div>
                 </div>
+                @endforeach
+            @else 
+                {{$today}}
+            @endif
+
+            @foreach($foo as $task)
                  @endforeach
             </div>
                 {{-- <div class="pb-16" style="margin: 0 auto;">

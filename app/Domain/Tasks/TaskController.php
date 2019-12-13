@@ -33,29 +33,37 @@ class TaskController extends Controller
         ];
 
         $foo = [
-            'task' => Task::with('department')->find(1)->toArray(),
+            'task' => Task::with('department')->first()->toArray(),
         ];
+
+        $today = Task::with('department')->where('due_date', now()->toDateString())->get()->toArray();
+
+        if(!$today) {
+            $today = 'No tasks due today';
+        }
 
         return view('app/task/list')
             ->with('model', $model)
-            ->with('foo', $foo);
+            ->with('foo', $foo)
+            ->with('today', $today)
+            ;
     }
 
-    /**
-     * shows one task
-     *
-     * @param \App\Domain\Tasks\Task $task
-     * @return \Illuminate\View\View
-     */
-    public function show()
-    {
-        $model = [
-            'task' => Task::find()->toArray(),
-        ];
+    // /**
+    //  * shows one task
+    //  *
+    //  * @param \App\Domain\Tasks\Task $task
+    //  * @return \Illuminate\View\View
+    //  */
+    // public function show()
+    // {
+    //     $model = [
+    //         'task' => Task::all()->toArray(),
+    //     ];
 
-        return view('app/task/details')
-            ->with('model', $model);
-    }
+    //     return view('app/task/details')
+    //         ->with('model', $model);
+    // }
 
 
     public function store(TaskRequest $request)
@@ -71,5 +79,39 @@ class TaskController extends Controller
             'progress' => strtolower($data['progress']),
 
         ]);
+
+        return redirect(route('task.index'));
+    }
+
+    public function destroy(Request $request, $task)
+    {
+        if(!Task::destroy($task)){
+            abort(500);
+        }
+
+        return redirect(route('task.index'));
+    }
+
+    public function edit(Request $request, $task)
+    {
+        if(!$task = Task::find($task)){
+            abort(500);
+        }
+
+        return view('app/task/edit')
+            ->with('task', $task);
+    }
+
+    public function update(Request $request, $task)
+    {
+        // dd($request->input(), $task);
+        Task::where('id', $task)
+            ->update([
+                'title' => $request->input('title'),
+
+                'due_date' => now()->addWeek(),
+            ]);
+
+        return redirect(route('task.index'));   
     }
 }

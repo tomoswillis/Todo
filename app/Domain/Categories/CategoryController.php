@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function show()
     {
         $model = [];
-        
+
         $model['categories'] = Category::all()->toArray();
 
         return view('app/category/list')

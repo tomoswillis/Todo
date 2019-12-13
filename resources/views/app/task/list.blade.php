@@ -35,11 +35,11 @@
         </div>
 
         {{-- @dd($model, $model['tasks']) --}}
-
+        <form method="POST" action="/task/delete">
+        @csrf
         @foreach($model['tasks'] as $task)
-            <div class="flex justify-between">
-                <input type="checkbox" class="mr-2 mt-2">
-                <div class="flex mb-10">
+            <div class="">
+                <div class="flex">
                     <div class="max-w-sm flex-auto items-center">
                         <div class="flex items-center">
                             <h2 class="tasks tasks--title text-2xl">{{ ucfirst($task['title']) }}</h2>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div>
-                            <p class="tasks tasks--description">
+                            <p class="mb-2 tasks tasks--description">
                                 {{ $task['description'] }}
                             </p>
                         </div>
@@ -69,7 +69,7 @@
                             <div class="flex flex-col-reverse justify-around relitive">
                                 <div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
                                     <p>
-                                        {{ $task['department'] ['title'] }}
+                                        {{ $task['department']['title'] }}
                                     </p>
                                 </div>
 
@@ -109,8 +109,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex mb-5">
+                    <a href="/tasks/edit/{{ $task['id'] }}" class="text-white"><i class="fa fa-edit w3-large"></i></a>
+
+                    <a href="/tasks/delete/{{ $task['id'] }}" class="text-white"><i class="fa fa-trash w3-large mx-3"></i></a>
+                </div>
             </div>
         @endforeach
+        </form>
     </div>
 @endsection
 
