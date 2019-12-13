@@ -24,6 +24,11 @@
                             {{ $task['description'] }}
                         </p>
                     </div>
+                                    <div class="flex mb-5">
+                    <a href="/tasks/edit/{{ $task['id'] }}" class="mt-2"><i class="fa fa-edit w3-large"></i></a>
+
+                    <a href="/tasks/delete/{{ $task['id'] }}" class="mt-2"><i class="fa fa-trash w3-large mx-3"></i></a>
+                </div>
                 </div>
                 <div class="">
                     <div class="h-20 relative tasks tasks--transparent-bg rounded-xl pr-2 pl-10 tasks--shadow">
