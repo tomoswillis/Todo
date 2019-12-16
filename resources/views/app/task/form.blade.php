@@ -46,12 +46,14 @@
                         <input 
                             type="date"
                             name="due"
+                            value="{{now()}}"
                             class="
                                 e-input
                                 rounded
                                 tasks
                                 tasks--transparent-bg
                                 border-none
+                                tasks--shadow
                                 h-10
                                 w-full
                                 text-white

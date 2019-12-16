@@ -99,7 +99,8 @@ class TaskController extends Controller
         }
 
         return view('app/task/edit')
-            ->with('task', $task);
+            ->with('task', $task)
+            ;
     }
 
     public function update(Request $request, $task)
@@ -108,8 +109,10 @@ class TaskController extends Controller
         Task::where('id', $task)
             ->update([
                 'title' => $request->input('title'),
-
-                'due_date' => now()->addWeek(),
+                'description' => $request->input('description'),
+                'progress' => $request->input('progress'),
+                'department_id' => $request->input('department'),
+                'due_date' => $request->input('due'),
             ]);
 
         return redirect(route('task.index'));   
