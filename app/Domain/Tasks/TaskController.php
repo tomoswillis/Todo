@@ -32,9 +32,9 @@ class TaskController extends Controller
             ],
         ];
 
-        $foo = [
-            'task' => Task::with('department')->first()->toArray(),
-        ];
+        // $foo = [
+        //     'task' => Task::with('department')->first()->toArray(),
+        // ];
 
         $today = Task::with('department')->where('due_date', now()->toDateString())->get()->toArray();
 
@@ -44,7 +44,7 @@ class TaskController extends Controller
 
         return view('app/task/list')
             ->with('model', $model)
-            ->with('foo', $foo)
+            // ->with('foo', $foo)
             ->with('today', $today)
             ;
     }
@@ -75,7 +75,7 @@ class TaskController extends Controller
             'description' => $data['description'],
             'due_date' => $data['due'],
             'category_id' => 1,
-            'department_id' => 1,
+            'department_id' => $data['department'],
             'progress' => strtolower($data['progress']),
 
         ]);

@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
-{{-- {{dd($task)}} --}}
+{{-- {{dd($task['department'])}} --}}
 
 <div 
     class="
@@ -93,8 +93,9 @@
                         h-10
                         w-full
                     ">
+                    <option value=" {{$task['department']['id']}} ">{{ ucfirst($task['department']['title']) }} (Selected)</option>
                     <option value="1">UX</option>
-                    <option value="2">Development</option>
+                    <option value="2">Backend</option>
                 </select>
             </div>
         </div>

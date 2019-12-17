@@ -7,8 +7,6 @@
                 @foreach($today as $task)
                 <div class="max-w-sm flex-auto items-center">
                     <div class="flex items-center">
-
-                        
                         <h2 class="tasks tasks--title text-2xl">{{ ucfirst($task['title']) }}</h2>
                     </div>
     
@@ -76,8 +74,7 @@
                 {{$today}}
             @endif
 
-            @foreach($foo as $task)
-                 @endforeach
+
             </div>
                 {{-- <div class="pb-16" style="margin: 0 auto;">
                     <span class="bg-black w-2 h-2 rounded-full">0</span>
