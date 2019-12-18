@@ -17,7 +17,7 @@
         ">
         <form class="e-container" method="POST" action="/task/store">
             @csrf
-z
+
             <div class="font-semibold inline-block px-6 py-2 tasks tasks--tab-title text-lg w-40 input-tab input-tab--color">
                 <h6>Add Task</h6>
             </div>
