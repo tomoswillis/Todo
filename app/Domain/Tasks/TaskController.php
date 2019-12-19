@@ -18,7 +18,7 @@ class TaskController extends Controller
 
         if ($request->input('order')) {
             $order = $request->input('order');
-        }        
+        }
 
         $model = [
             'tasks' => Task::with('department')
@@ -89,7 +89,7 @@ class TaskController extends Controller
             abort(500);
         }
 
-        return redirect(route('task.index'));
+        return;
     }
 
     public function edit(Request $request, $task)
@@ -115,6 +115,6 @@ class TaskController extends Controller
                 'due_date' => $request->input('due'),
             ]);
 
-        return redirect(route('task.index'));   
+        return redirect(route('task.index'));
     }
 }

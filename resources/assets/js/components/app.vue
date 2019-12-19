@@ -30,7 +30,10 @@
 		<div
 			class=""
 			v-for="task in $data.list"
+			:key="task.id"
 		>
+			<pre v-html="task.editing ? 'EDITING' : 'N/A'" />
+
 			<div class="flex">
 				<div class="max-w-sm flex-auto items-center">
 					<div class="flex items-center">
@@ -104,13 +107,21 @@
 			</div>
 
 			<div class="flex mb-5">
-				<a :href="`/tasks/edit/${task.id}`" class="text-white">
+				<button
+					class="text-white"
+					:class="{ 'opacity-50': task.editing }"
+					:disabled="task.editing"
+					@click.prevent="setTaskEditable(task.id)"
+				>
 					<i class="fa fa-edit w3-large" />
-				</a>
+				</button>
 
-				<a :href="`/tasks/delete/${task.id}`" class="text-white">
+				<button
+					class="text-white"
+					@click.prevent="deleteTask(task.id)"
+				>
 					<i class="fa fa-trash w3-large mx-3" />
-				</a>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -127,13 +138,27 @@
 
 		data() {
 			return {
-				list: this.$props.initialList,
+				list: this.$props.initialList.map(task => ({
+					...task,
+					editing: false,
+				})),
 			};
 		},
 
 		methods: {
-			// bar() {
-			// },
+			deleteTask(id) {
+				axios.get(`/tasks/delete/${id}`);
+
+				this.$data.list.splice(this.findIndexById(id), 1);
+			},
+
+			setTaskEditable(id) {
+				this.$data.list[this.findIndexById(id)].editing = true;
+			},
+
+			findIndexById(id) {
+				return this.$data.list.findIndex(task => task.id === id);
+			},
 		},
 	};
 </script>
