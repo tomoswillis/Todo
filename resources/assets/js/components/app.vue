@@ -1,139 +1,139 @@
 <template>
-	<div class="e-container mx-auto sm:w-full md:w-3/5">
-		<h2 class="text-center e-h1 mt-10 mb-5">
-			My Todo List ... Maybe Calender
-		</h2>
-		<!--input (text area// V-model takes the input (Value and input)
-		and applys it to the data object. @keyup.enter runs the addTodo funtion)  -->
-		<input
-			v-model="newTodo"
-			type="text"
-			class="todo-input e-input rounded mb-2"
-			placeholder="What needs to be done"
-			@keyup.enter="addTodo"
-		>
-		<div class="flex w-64 items-center mb-5">
-			<h2 class="flex-none text-base text-grey-600">
-				Due Date:
-			</h2>
-			<input
-				v-model="due"
-				v-focus
-				max="31"
-				type="number"
-				class="todo-input-date w-1/5 text-center rounded"
-			>
+	<div class="e-container width-holder center tasks tasks--bg tasks--shadow text-white rounded-xl pb-2 relative">
+		<div class="font-semibold inline-block px-6 py-2 tasks tasks--tab-title  tasks--tab-title--form text-lg w-40">
+			<h6>Your Tasks</h6>
 		</div>
-		<todo-list
-			:initial-list="$data.list"
-			@removeTodo="removeTodo"
-			@re="re"
-		/>
+
+		<div class="flex pb-10 pt-10">
+			<div>
+				<select name="" id="" class=" tasks tasks--transparent-bg py-2 px-5">
+					<option value="#">Ascending</option>
+					<option value="#">Descending</option>
+				</select>
+			</div>
+
+			<div class="">
+				<select name="" id="" class=" tasks tasks--transparent-bg py-2 px-5 ml-2">
+					<option value="#">Filter</option>
+					<option value="#">Descending</option>
+				</select>
+			</div>
+
+			<div class="">
+				<select name="" id="" class=" tasks tasks--transparent-bg py-2 px-5 ml-2">
+					<option value="#">Filter</option>
+					<option value="#">Descending</option>
+				</select>
+			</div>
+		</div>
+
+		<div
+			class=""
+			v-for="task in $data.list"
+		>
+			<div class="flex">
+				<div class="max-w-sm flex-auto items-center">
+					<div class="flex items-center">
+						<h2 class="tasks tasks--title text-2xl">{{ task.title }}</h2>
+					</div>
+
+					<div class="tasks tasks--department--bg  rounded-lg my-2 inline-block tasks--shadow">
+						<h3 class="tasks tasks--department px-2 text-sm">
+							<strong>Asigned By:</strong>
+							Tomos
+						</h3>
+					</div>
+
+					<div>
+						<p class="mb-2 tasks tasks--description">
+							{{ task.description }}
+						</p>
+					</div>
+				</div>
+
+				<div class="">
+					<div class="h-20 relative tasks tasks--transparent-bg rounded-xl pr-2 pl-10 tasks--shadow">
+						<div>
+							<p class="tasks tasks--day text-right text-3xl">
+								{{ task.due_date }}
+							</p>
+						</div>
+
+						<div class="flex flex-col-reverse justify-around relitive">
+							<div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
+								<p>
+									{{ task.department.title }}
+								</p>
+							</div>
+
+							<div>
+								<p class="tasks tasks--month text-right">
+									{{ task.due_date }}
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<h4
+							class="
+								tasks
+								tasks--department
+								tasks--department--bg
+								rounded-lg
+								pl-2
+								mt-3
+								tasks--shadow
+								text-sm
+								inline-block
+								uppercase
+							"
+						>
+							<strong>Status:</strong>
+
+							<!-- <select name="" id="" class="e-select w-20">
+								@if($task['progress'] == $flag)
+									<option value="{{task.id}}" selected>{{ ucfirst($flag) }}</option>
+								@else
+									<option value="{{$task['id']}}">{{ ucfirst($flag) }}</option>
+								@endif
+							</select> -->
+						</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex mb-5">
+				<a :href="`/tasks/edit/${task.id}`" class="text-white">
+					<i class="fa fa-edit w3-large" />
+				</a>
+
+				<a :href="`/tasks/delete/${task.id}`" class="text-white">
+					<i class="fa fa-trash w3-large mx-3" />
+				</a>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-	import TodoList from './todo-list';
-
 	export default {
-		components: {
-			TodoList,
-		},
-
-		directives: {
-			focus: {
-				// directive definition
-				inserted(el) {
-					el.focus();
-				},
+		props: {
+			initialList: {
+				type: Array,
+				required: true,
 			},
 		},
 
 		data() {
 			return {
-				newTodo: '',
-				idForTodo: 6,
-				beforeEditCache: '',
-				due: 2,
-				list: [
-					{
-						id: 1,
-						title: 'Learn Vue',
-						completed: false,
-						editing: false,
-						due: 23,
-					},
-					{
-						id: 2,
-						title: 'Go for a run!',
-						completed: false,
-						editing: false,
-						due: 24,
-					},
-					{
-						id: 3,
-						title: 'Finish Making Todo App',
-						completed: false,
-						editing: false,
-						due: 21,
-					},
-					{
-						id: 4,
-						title: 'Dive!',
-						completed: false,
-						editing: false,
-						due: 29,
-					},
-					{
-						id: 5,
-						title: 'Party',
-						completed: false,
-						editing: false,
-						due: 12,
-					},
-				],
+				list: this.$props.initialList,
 			};
 		},
+
 		methods: {
-			//	'this' must be used when refering to the data.
-			//	.trim() removes the white space
-			//	.length counts the about of chars in the string given
-			/**
-			 * The if statment is looking to see if the newTodo has been given
-			 * a value that is === to 0.
-			 * If it has then return
-			 */
-			//	if there is a string carry on ----->
-			addTodo() {
-				if (this.newTodo.trim().length === 0) return;
-
-				//	.push pushes the items in brackets to the array, in this case todos
-				//	this will create a new item in the array
-				this.list.push({
-					id: this.idForTodo,
-					title: this.newTodo,
-					completed: false,
-					due: this.due,
-				});
-
-				//	this clears the newTodo
-				this.newTodo = '';
-				//	This will add one and update the idForTodo in the data object
-				this.idForTodo += 1;
-				this.due = 2;
-			},
-
-			removeTodo(id) {
-				for (let i = 0; i < this.list.length; i += 1) {
-					if (this.list[i].id === id) {
-						this.list.splice(i, 1);
-					}
-				}
-			},
-
-			re() {
-				this.list = this.list.splice(list => !list.completed);
-			},
+			// bar() {
+			// },
 		},
 	};
 </script>
