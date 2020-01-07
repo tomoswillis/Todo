@@ -2,6 +2,7 @@
 
 namespace App\Domain\Tasks;
 
+use App\Domain\Departments\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $order = 'desc';
+        $order = 'asc';
 
         if ($request->input('order')) {
             $order = $request->input('order');
@@ -32,20 +33,13 @@ class TaskController extends Controller
             ],
         ];
 
-        // $foo = [
-        //     'task' => Task::with('department')->first()->toArray(),
-        // ];
-
-        $today = Task::with('department')->where('due_date', now()->toDateString())->get()->toArray();
-
-        if(!$today) {
-            $today = 'No tasks due today';
-        }
+        $departments = Department::all()
+                    ->toArray();
 
         return view('app/task/list')
             ->with('model', $model)
-            // ->with('foo', $foo)
-            ->with('today', $today)
+            ->with('today', now()->toDateString())
+            ->with('departments', $departments)
             ;
     }
 
@@ -80,7 +74,10 @@ class TaskController extends Controller
 
         ]);
 
-        return redirect(route('task.index'));
+        return [
+            'status' => 'success',
+            'redirect' => route('task.index')
+        ];
     }
 
     public function destroy(Request $request, $task)
@@ -103,18 +100,20 @@ class TaskController extends Controller
             ;
     }
 
-    public function update(Request $request, $task)
+    public function update(Request $request, int $task)
     {
-        // dd($request->input(), $task);
         Task::where('id', $task)
             ->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
-                'progress' => $request->input('progress'),
+                // 'progress' => $request->input('progress'),
                 'department_id' => $request->input('department'),
                 'due_date' => $request->input('due'),
             ]);
 
-        return redirect(route('task.index'));
+        return [
+            'status' => 'success',
+            'redirect' => route('task.index')
+        ];
     }
 }

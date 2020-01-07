@@ -4,7 +4,6 @@ namespace App\Domain\Tasks;
 
 use App\Domain\Categories\Category;
 use App\Domain\Departments\Department;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,7 +21,7 @@ class Task extends Model
     ];
 
     // Relationships
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -32,6 +31,4 @@ class Task extends Model
     {
         return $this->belongsTo(Department::class);
     }
-
 }
-
