@@ -83,12 +83,12 @@
 						<p
 							v-if="!$data.editing"
 							class="tasks tasks--day text-right text-3xl"
-						>
-							{{ task.date.dayOfMonth }}
-						</p>
+							v-text="task.date.dayOfMonth"
+						/>
 						<input
 							v-if="$data.editing"
 							v-model="$data.form.due"
+							value=""
 							type="date"
 							name="due"
 							class="
@@ -102,9 +102,10 @@
 
 					<div class="flex flex-col-reverse justify-around relitive">
 						<div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
-							<p v-if="!$data.editing">
-								{{ task.department.title }}
-							</p>
+							<p
+								v-if="!$data.editing"
+								v-text="task.department.title"
+							/>
 
 							<select
 								v-else
@@ -120,9 +121,8 @@
 									v-for="department in $props.departments"
 									:key="department.id"
 									:value="department.id"
-								>
-									{{ department.title }}
-								</option>
+									v-text="department.title"
+								/>
 							</select>
 						</div>
 

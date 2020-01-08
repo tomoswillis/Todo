@@ -1,8 +1,9 @@
 <template>
 	<div>
-		<!-- <showToday
-			:task="today"
-		/> -->
+		<showToday
+			:tasks="today"
+			:departments="departments"
+		/>
 		<div
 			class="
 			e-container
@@ -91,11 +92,13 @@
 
 	import Edit from './edit';
 	import addTask from './add-task';
+	import showToday from './show-today';
 
 	export default {
 		components: {
 			Edit,
 			addTask,
+			showToday,
 		},
 
 		props: {
@@ -110,7 +113,7 @@
 			},
 
 			today: {
-				type: String,
+				type: Array,
 				required: true,
 			},
 		},

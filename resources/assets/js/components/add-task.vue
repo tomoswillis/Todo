@@ -22,17 +22,28 @@
 				class="e-container"
 				@submit.prevent="onSubmit"
 			>
-				<div class="font-semibold inline-block px-6 py-2 tasks tasks--tab-title text-lg w-40 input-tab input-tab--color">
+				<div
+					class="
+						font-semibold
+						inline-block
+						px-6
+						py-2
+						tasks
+						tasks--tab-title
+						text-lg
+						w-40
+						input-tab
+						input-tab--color"
+				>
 					<h6>Add Task</h6>
 				</div>
 				<!-- {{--Task Title Input--}} -->
-					<!-- <div class="alert alert-danger" >{{ $message }}</div> -->
+				<!-- <div class="alert alert-danger" >{{ $message }}</div> -->
 				<input
 					v-model="$data.form.task"
 					type="text"
 					name="task"
-					class=
-					"
+					class="
 						e-input
 						tasks
 						tasks--transparent-bg
@@ -64,8 +75,8 @@
 									h-10
 									w-full
 									text-white
-									p-2
-								">
+									p-2"
+							>
 						</div>
 					</div>
 					<!-- {{--Task Status--}} -->
@@ -79,11 +90,17 @@
 									tasks--transparent-bg
 									tasks--shadow
 									h-10
-									w-full
-								">
-								<option value="planning">Planning</option>
-								<option value="completed">Completed</option>
-								<option value="cancelled">Cancelled</option>
+									w-full"
+							>
+								<option value="planning">
+									Planning
+								</option>
+								<option value="completed">
+									Completed
+								</option>
+								<option value="cancelled">
+									Cancelled
+								</option>
 							</select>
 						</div>
 					</div>
@@ -101,10 +118,14 @@
 									tasks--transparent-bg
 									tasks--shadow
 									h-10
-									w-full
-								">
-								<option value="1">UX</option>
-								<option value="2">Backend</option>
+									w-full"
+							>
+								<option value="1">
+									UX
+								</option>
+								<option value="2">
+									Backend
+								</option>
 							</select>
 						</div>
 					</div>
@@ -119,10 +140,14 @@
 									tasks--transparent-bg
 									tasks--shadow
 									h-10
-									w-full
-								">
-								<option value="#">Tomos</option>
-								<option value="#">Who?</option>
+									w-full"
+							>
+								<option value="#">
+									Tomos
+								</option>
+								<option value="#">
+									Who?
+								</option>
 							</select>
 						</div>
 					</div>
@@ -130,9 +155,9 @@
 				<!-- {{--Task Description Input--}} -->
 				<div class="mt-8 flex flex-col items-center">
 					<textarea
+						v-model="$data.form.description"
 						rows="2"
 						cols="50"
-						v-model="$data.form.description"
 						class="
 							e-input
 							tasks
@@ -140,14 +165,21 @@
 							rounded
 							tasks--shadow
 							border-none
-							text-white
-						"
+							text-white"
 						placeholder="Description"
 						name="description"
+					/>
+					<input
+						type="submit"
+						value="Add Task"
+						class="
+							e-button
+							tasks
+							uppercase
+							mt-5
+							tasks--form--add-task
+							rounded-lg"
 					>
-					</textarea>
-
-					<input type="submit" value="Add Task" class="e-button tasks uppercase mt-5 tasks--form--add-task rounded-lg">
 				</div>
 			</form>
 		</div>
@@ -175,7 +207,7 @@
 					description: 'test',
 					due: '',
 					department: '1',
-					progress: 'Complete',
+					progress: 'complete',
 				},
 			};
 		},

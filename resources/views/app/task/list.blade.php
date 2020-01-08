@@ -3,8 +3,8 @@
 @section('content')
     <app
         :initial-list='@json($model['tasks'])'
-        :departments='@json($departments)'
-        :today='@json($today)'
+        :departments='@json($model['departments'])'
+        :today='@json($model['today'])'
     />
 @endsection
 

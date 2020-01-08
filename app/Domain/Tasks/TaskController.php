@@ -2,7 +2,6 @@
 
 namespace App\Domain\Tasks;
 
-use App\Domain\Departments\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,32 +14,12 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $order = 'asc';
+        $order = $request->input('order') ?? 'asc';
 
-        if ($request->input('order')) {
-            $order = $request->input('order');
-        }
-
-        $model = [
-            'tasks' => Task::with('department')
-                ->orderBy('due_date', $order)
-                ->get()
-                ->toArray(),
-            'progress_flags' => [
-                'planning',
-                'completed',
-                'cancelled',
-            ],
-        ];
-
-        $departments = Department::all()
-                    ->toArray();
+        $model = new TaskViewModel($order);
 
         return view('app/task/list')
-            ->with('model', $model)
-            ->with('today', now()->toDateString())
-            ->with('departments', $departments)
-            ;
+            ->with($model->array());
     }
 
     // /**
