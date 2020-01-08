@@ -83,7 +83,7 @@
 						<p
 							v-if="!$data.editing"
 							class="tasks tasks--day text-right text-3xl"
-							v-text="task.date.dayOfMonth"
+							v-text="task.day"
 						/>
 						<input
 							v-if="$data.editing"
@@ -131,7 +131,7 @@
 								v-if="!$data.editing"
 								class="tasks tasks--month text-right"
 							>
-								{{ task.date.month }}
+								{{ task.month }}
 							</p>
 						</div>
 					</div>
