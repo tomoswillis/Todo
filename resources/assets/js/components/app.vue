@@ -78,6 +78,7 @@
 					:task="task"
 					:action="'/task/edit/' + task.id"
 					:departments="departments"
+					@delete="deleteTask"
 				/>
 			</div>
 		</div>
@@ -137,6 +138,14 @@
 						month: DateTime.fromISO(task.due_date).toFormat('LLLL'),
 					},
 				}));
+			},
+		},
+
+		methods: {
+			deleteTask(id) {
+				const taskIndex = this.$data.list.findIndex(task => task.id === id);
+
+				this.$data.list.splice(taskIndex, 1);
 			},
 		},
 	};

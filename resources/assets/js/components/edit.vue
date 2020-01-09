@@ -240,6 +240,7 @@
 		methods: {
 			deleteTask() {
 				axios.get(`/tasks/delete/${this.$props.task.id}`);
+				this.$emit('delete', this.$props.task.id);
 			},
 
 			setTaskEditable() {
