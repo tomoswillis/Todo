@@ -43,6 +43,7 @@
 					v-model="$data.form.task"
 					type="text"
 					name="task"
+					value=""
 					class="
 						e-input
 						tasks
@@ -203,11 +204,11 @@
 		data() {
 			return {
 				form: {
-					task: 'title',
-					description: 'test',
-					due: '',
+					task: '',
+					description: '',
+					due: '2020-01-01',
 					department: '1',
-					progress: 'complete',
+					progress: 'planning',
 				},
 			};
 		},
