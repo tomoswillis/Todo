@@ -1,27 +1,20 @@
 <template>
-	<div
-		v-if="!tasks.length > 0"
-	>
-		No tasks due today
-	</div>
-	<div
-		v-else
-	>
-		<div
-			v-for="task in $props.tasks"
-			:key="task.id"
-		>
-			<!-- <slide
-				:task="task"
-			/> -->
+	<div class="e-container width-holder mb-5 mt-12 rounded-xl grey-grad-bg pt-10 pb-1	">
+		<h1 class="tasks tasks--title text-3xl uppercase mb-3 text-medium">
+			Due today
+		</h1>
+		<div v-if="!tasks.length > 0">
+			<h2 class="tasks text-md mb-3 text-thin">
+				No tasks due today
+			</h2>
+		</div>
 
-			<div class="e-container width-holder mb-5 mt-12 rounded-xl grey-grad-bg pt-10 pb-1	">
-				<h1 class="tasks tasks--title text-3xl uppercase mb-3 text-medium">
-					Due Today
-				</h1>
-				<div
-					class="flex mb-10"
-				>
+		<div v-else>
+			<div
+				v-for="task in $props.tasks"
+				:key="task.id"
+			>
+				<div class="flex mb-10">
 					<div class="max-w-sm flex-auto items-center">
 						<div class="flex items-center">
 							<h2 class="tasks tasks--title text-2xl">
