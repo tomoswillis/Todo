@@ -9,3 +9,7 @@ Route::post('/task/edit/{task}')
 Route::post('/task/store')
     ->uses('Tasks\TaskController@store')
     ->name('task.store');
+
+Route::get('/tasks/delete/{task}')
+    ->uses('Tasks\TaskController@destroy')
+    ->name('task.destroy');

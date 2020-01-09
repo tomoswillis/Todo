@@ -229,7 +229,7 @@
 				form: {
 					title: this.$props.task.title,
 					description: this.$props.task.description,
-					due: this.$props.task.due,
+					due: this.$props.task.due_date,
 					department: this.$props.task.department_id,
 				},
 

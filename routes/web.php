@@ -6,10 +6,6 @@ Route::get('/')
     ->uses('Tasks\TaskController@index')
     ->name('task.index');
 
-Route::get('/tasks/delete/{task}')
-    ->uses('Tasks\TaskController@destroy')
-    ->name('task.destroy');
-
 Route::get('/categories')
     ->uses('Categories\CategoryController@show')
     ->name('categories.show');
