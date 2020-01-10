@@ -4,7 +4,7 @@
 		name="task"
 		:disabled="$data.isSubmitting"
 		novalidate
-		@submit.prevent="onSubmit"
+		@submit.prevent="updateTask"
 	>
 		<div class="flex">
 			<div class="max-w-sm flex-auto items-center">
@@ -13,7 +13,7 @@
 						v-if="!$data.editing"
 						class="tasks tasks--title text-2xl"
 					>
-						{{ task.title }}
+						{{ $data.form.title }}
 					</h2>
 
 					<input
@@ -45,7 +45,7 @@
 						v-if="!$data.editing"
 						class="mb-2 tasks tasks--description"
 					>
-						{{ task.description }}
+						{{ $data.form.description }}
 					</p>
 
 					<textarea
@@ -85,6 +85,7 @@
 							class="tasks tasks--day text-right text-3xl"
 							v-text="task.day"
 						/>
+
 						<input
 							v-if="$data.editing"
 							v-model="$data.form.due"
@@ -104,7 +105,7 @@
 						<div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
 							<p
 								v-if="!$data.editing"
-								v-text="task.department.title"
+								v-text="department"
 							/>
 
 							<select
@@ -237,6 +238,12 @@
 			};
 		},
 
+		computed: {
+			department() {
+				return this.$props.departments.find(({ id }) => id === this.$data.form.department).title;
+			},
+		},
+
 		methods: {
 			deleteTask() {
 				axios.get(`/tasks/delete/${this.$props.task.id}`);
@@ -245,6 +252,12 @@
 
 			setTaskEditable() {
 				this.$data.editing = true;
+			},
+
+			updateTask() {
+				this.$data.editing = false;
+
+				this.onSubmit();
 			},
 		},
 	};

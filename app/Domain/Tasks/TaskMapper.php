@@ -20,6 +20,7 @@ class TaskMapper extends Mapper
             'progress' => $data['progress'],
             'day' => Carbon::parse($data['due_date'])->format('d'),
             'month' => Carbon::parse($data['due_date'])->format('F'),
+            'due_today' => Carbon::parse($data['due_date'])->isToday(),
             'department' =>  (new DepartmentMapper)->map($data['department']),
         ];
     }

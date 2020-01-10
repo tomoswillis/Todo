@@ -92,7 +92,7 @@ class TaskController extends Controller
 
         return [
             'status' => 'success',
-            'redirect' => route('task.index')
+            // 'redirect' => route('task.index')
         ];
     }
 }
