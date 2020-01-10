@@ -67,7 +67,7 @@
 			</div>
 
 			<div
-				v-for="task in computedList"
+				v-for="task in $data.list"
 				:key="task.id"
 			>
 				<showToday
@@ -89,8 +89,6 @@
 </template>
 
 <script>
-	import { DateTime } from 'luxon';
-
 	import Edit from './edit';
 	import addTask from './add-task';
 	import showToday from './show-today';
@@ -134,15 +132,6 @@
 		},
 
 		computed: {
-			computedList() {
-				return this.$data.list.map(task => ({
-					...task,
-					date: {
-						dayOfMonth: DateTime.fromISO(task.due_date).day,
-						month: DateTime.fromISO(task.due_date).toFormat('LLLL'),
-					},
-				}));
-			},
 			// footest() {
 			// 	return this.$data.bar.map(task => ({
 			// 		...task,
