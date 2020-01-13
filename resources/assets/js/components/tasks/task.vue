@@ -110,11 +110,6 @@
 				type: Array,
 				required: true,
 			},
-
-			// today: {
-			// 	type: Array,
-			// 	required: true,
-			// },
 		},
 
 		data() {
@@ -123,21 +118,11 @@
 					...task,
 					editing: false,
 				})),
-
-				// bar: this.$props.today.map(task => ({
-				// 	...task,
-				// })),
 			};
 
 		},
 
 		computed: {
-			// footest() {
-			// 	return this.$data.bar.map(task => ({
-			// 		...task,
-			// 	}));
-			// },
-
 			dueTodayList() {
 				return this.$data.list.filter(due => due.due_today === true);
 			},
@@ -148,9 +133,6 @@
 			deleteTask(id) {
 				const taskIndex = this.$data.list.findIndex(task => task.id === id);
 				this.$data.list.splice(taskIndex, 1);
-
-				// const foo = this.$data.bar.findIndex(task => task.id === id);
-				// this.$data.bar.splice(foo, 1);
 			},
 		},
 	};

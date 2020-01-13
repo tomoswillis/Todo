@@ -22,23 +22,6 @@ class TaskController extends Controller
             ->with($model->array());
     }
 
-    // /**
-    //  * shows one task
-    //  *
-    //  * @param \App\Domain\Tasks\Task $task
-    //  * @return \Illuminate\View\View
-    //  */
-    // public function show()
-    // {
-    //     $model = [
-    //         'task' => Task::all()->toArray(),
-    //     ];
-
-    //     return view('app/task/details')
-    //         ->with('model', $model);
-    // }
-
-
     public function store(TaskRequest $request)
     {
         $data = $request->input();
