@@ -83,7 +83,7 @@
 						<p
 							v-if="!$data.editing"
 							class="tasks tasks--day text-right text-3xl"
-							v-text="date.dayOfMonth"
+							v-text="task.day"
 						/>
 
 						<input
@@ -132,7 +132,7 @@
 								v-if="!$data.editing"
 								class="tasks tasks--month text-right"
 							>
-								{{ date.month }}
+								{{ task.month }}
 							</p>
 						</div>
 					</div>
@@ -203,7 +203,7 @@
 <script>
 	import { DateTime } from 'luxon';
 
-	import Form from '../mixins/form';
+	import Form from '../../mixins/form';
 
 	export default {
 		mixins: [

@@ -5,15 +5,18 @@ namespace App\Domain\Tasks;
 use Carbon\Carbon;
 use EngageInteractive\LaravelViewModels\Mapper;
 use App\Domain\Departments\DepartmentMapper;
+use App\Domain\Users\UserMapper;
 
 class TaskMapper extends Mapper
 {
     public function map($data)
     {
+
         return [
             'id' => $data['id'],
             'category_id' => $data['category_id'],
             'department_id' => $data['department_id'],
+            'user_id' => $data['user_id'],
             'title' => $data['title'],
             'description' => $data['description'],
             'due_date' => $data['due_date'],
@@ -22,6 +25,7 @@ class TaskMapper extends Mapper
             'month' => Carbon::parse($data['due_date'])->format('F'),
             'due_today' => Carbon::parse($data['due_date'])->isToday(),
             'department' =>  (new DepartmentMapper)->map($data['department']),
+            'user' =>  (new UserMapper)->map($data['user']),
         ];
     }
 }

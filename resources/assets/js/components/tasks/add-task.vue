@@ -187,7 +187,7 @@
 	</div>
 </template>
 <script>
-	import Form from '../mixins/form';
+	import Form from '../../mixins/form';
 
 	export default {
 		mixins: [

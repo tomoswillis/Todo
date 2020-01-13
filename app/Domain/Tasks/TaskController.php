@@ -49,6 +49,7 @@ class TaskController extends Controller
             'due_date' => $data['due'],
             'category_id' => 1,
             'department_id' => $data['department'],
+            'user_id' => 1,
             'progress' => strtolower($data['progress']),
 
         ]);
@@ -92,7 +93,7 @@ class TaskController extends Controller
 
         return [
             'status' => 'success',
-            // 'redirect' => route('task.index')
+                'redirect' => route('task.index'),
         ];
     }
 }
