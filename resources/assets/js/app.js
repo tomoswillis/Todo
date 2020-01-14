@@ -18,6 +18,7 @@ import Placeholder from './components/common/placeholder';
 
 // Todo
 import Task from './components/tasks/task';
+import Maintenance from './components/maintenance/maintenance';
 
 // Accounts
 // import ForgotPasswordForm from './components/accounts/forgot-password-form';
@@ -38,6 +39,7 @@ Vue.component('IconText', IconText);
 Vue.component('Pagination', Pagination);
 Vue.component('Placeholder', Placeholder);
 Vue.component('Task', Task);
+Vue.component('Maintenance', Maintenance);
 
 new Vue({
 	el: '#app',

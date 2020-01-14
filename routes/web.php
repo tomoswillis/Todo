@@ -17,3 +17,7 @@ Route::get('/departments')
 Route::get('/users')
     ->uses('Users\UserController@show')
     ->name('user.show');
+
+Route::get('/maintenance')
+    ->uses('Maintenance\MaintenanceController@show')
+    ->name('maintenance.show');

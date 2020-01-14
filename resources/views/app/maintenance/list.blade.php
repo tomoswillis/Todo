@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
-    <task
-        :initial-list='@json($model['tasks'])'
+    <maintenance
+        :initial-list='@json($model)'
     />
 @endsection
