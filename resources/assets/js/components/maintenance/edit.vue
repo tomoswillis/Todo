@@ -28,7 +28,9 @@
 			</div>
 		</form>
 
-		<h2 class="e-h2 mb-3">Current Enteries</h2>
+		<h2 class="e-h2 mb-3">
+			Current Enteries
+		</h2>
 		<div
 			class="bg-white p-3 mt-2 border border-grey-500"
 		>

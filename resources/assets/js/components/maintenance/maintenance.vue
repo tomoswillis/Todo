@@ -13,7 +13,9 @@
 
 			"
 		>
-			<h1 class="e-h1">Edit</h1>
+			<h1 class="e-h1">
+				Edit
+			</h1>
 			<div class="mt-3">
 				<button
 					class="e-h5 p-3"
@@ -22,13 +24,18 @@
 					Departments
 				</button>
 				<button class=" e-h5 p-3"
-				@click="$data.selected = ('category')">Categories</button>
+					@click="$data.selected = ('category')"
+				>
+					Categories
+				</button>
 			</div>
 		</div>
 
 		<div class="w-1/2">
 			<div v-if="$data.selected = 'departments'">
-				<h2 class="e-h2 mb-3">Add A Department</h2>
+				<h2 class="e-h2 mb-3">
+					Add A Department
+				</h2>
 				<edit
 					:table="departments"
 					:action="'/department/store'"
@@ -36,7 +43,9 @@
 			</div>
 
 			<div v-else>
-				<h2 class="e-h2 mb-3">Add A Category</h2>
+				<h2 class="e-h2 mb-3">
+					Add A Category
+				</h2>
 				<edit
 					:table="categories"
 					:action="'/category/store'"
