@@ -14,10 +14,24 @@ class DepartmentController extends Controller
     public function show()
     {
         $model = [];
-        
+
         $model['departments'] = Department::all()->toArray();
 
         return view('app/department/list')
             ->with('model', $model);
+    }
+
+    public function store(DepartmentRequest $request)
+    {
+        $data = $request->input();
+
+        Department::create([
+            'title' => $data['title'],
+        ]);
+
+        return [
+            'status' => 'success',
+            'redirect' => route('maintenance.show')
+        ];
     }
 }

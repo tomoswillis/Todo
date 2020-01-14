@@ -20,4 +20,18 @@ class CategoryController extends Controller
         return view('app/category/list')
             ->with('model', $model);
     }
+
+    public function store(CategoryRequest $request)
+    {
+        $data = $request->input();
+
+        Category::create([
+            'title' => $data['title'],
+        ]);
+
+        return [
+            'status' => 'success',
+            'redirect' => route('maintenance.show')
+        ];
+    }
 }

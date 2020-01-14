@@ -13,3 +13,11 @@ Route::post('/task/store')
 Route::get('/tasks/delete/{task}')
     ->uses('Tasks\TaskController@destroy')
     ->name('task.destroy');
+
+Route::post('/department/store')
+    ->uses('Departments\DepartmentController@store')
+    ->name('Department.store');
+
+Route::post('/category/store')
+    ->uses('Categories\CategoryController@store')
+    ->name('Category.show');
