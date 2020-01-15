@@ -34,4 +34,13 @@ class CategoryController extends Controller
             'redirect' => route('maintenance.show')
         ];
     }
+
+    public function destroy($category)
+    {
+        if (!Category::destroy($category)) {
+            abort(500);
+        }
+
+        return;
+    }
 }

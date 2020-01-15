@@ -16,8 +16,16 @@ Route::get('/tasks/delete/{task}')
 
 Route::post('/department/store')
     ->uses('Departments\DepartmentController@store')
-    ->name('Department.store');
+    ->name('department.store');
+
+Route::get('/department/delete/{department}')
+    ->uses('Departments\DepartmentController@destroy')
+    ->name('department.destroy');
 
 Route::post('/category/store')
     ->uses('Categories\CategoryController@store')
-    ->name('Category.show');
+    ->name('category.show');
+
+Route::get('/category/delete/{category}')
+    ->uses('Categories\CategoryController@destroy')
+    ->name('category.destroy');

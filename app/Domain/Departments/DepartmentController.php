@@ -34,4 +34,13 @@ class DepartmentController extends Controller
             'redirect' => route('maintenance.show')
         ];
     }
+
+    public function destroy($department)
+    {
+        if (!Department::destroy($department)) {
+            abort(500);
+        }
+
+        return;
+    }
 }

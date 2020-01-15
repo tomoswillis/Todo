@@ -105,7 +105,7 @@
 						<div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
 							<p
 								v-if="!$data.editing"
-								v-text="department"
+								v-text="departmentTitle"
 							/>
 
 							<select
@@ -248,7 +248,7 @@
 				};
 			},
 
-			department() {
+			departmentTitle() {
 				return this.$props.departments.find(({ id }) => id === this.$data.form.department).title;
 			},
 		},

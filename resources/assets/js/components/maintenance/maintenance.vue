@@ -1,54 +1,43 @@
 <template>
-	<div class="bg-grey-400 flex pt-5 px-5 h-screen">
+	<div class="bg-grey-100 flex px-5 h-screen tasks--title">
 		<div
 			class="
 				bg-white
-				w-40
 				mr-5
-				pt-3
 				text-center
-				h-64
 				border
 				border-grey-500
-
+				min-w-screen
 			"
 		>
-			<h1 class="e-h1">
+			<h1 class="tasks--title text-2xl mt-5">
 				Edit
 			</h1>
-			<div class="mt-3">
+			<div class="mt-3 font-normal">
 				<button
-					class="e-h5 p-3"
-					@click="$data.selected = ('departments')"
+					class=" p-3"
+					@click.prevent="$data.selected = 'departments'"
 				>
 					Departments
 				</button>
-				<button class=" e-h5 p-3"
-					@click="$data.selected = ('category')"
+				<button
+					class=" p-3"
+					@click="$data.selected = 'categories'"
 				>
 					Categories
 				</button>
 			</div>
 		</div>
 
-		<div class="w-1/2">
-			<div v-if="$data.selected = 'departments'">
-				<h2 class="e-h2 mb-3">
-					Add A Department
+		<div class="w-screen mt-5">
+			<div>
+				<h2 class="tasks--title text-2xl mb-3">
+					{{ activeTable.heading }}
 				</h2>
-				<edit
-					:table="departments"
-					:action="'/department/store'"
-				/>
-			</div>
 
-			<div v-else>
-				<h2 class="e-h2 mb-3">
-					Add A Category
-				</h2>
 				<edit
-					:table="categories"
-					:action="'/category/store'"
+					v-bind="activeTable.edit"
+					@delete="deleteTask"
 				/>
 			</div>
 		</div>
@@ -73,10 +62,51 @@
 
 		data() {
 			return {
-				departments: this.$props.initialList.departments,
-				categories: this.$props.initialList.categories,
-				selected: 'category',
+				tables: {
+					departments: this.$props.initialList.departments,
+					categories: this.$props.initialList.categories,
+				},
+				selected: 'departments',
 			};
+		},
+
+		computed: {
+			activeTable() {
+				const foo = {
+					categories: {
+						heading: 'Add a Category',
+						inputAction: '/category/store',
+						action: '',
+						deleteItem: '/category/delete/',
+					},
+					departments: {
+						heading: 'Add a Department',
+						inputAction: '/department/store',
+						action: '',
+						deleteItem: '/department/delete/',
+					},
+				};
+
+				const { selected } = this.$data;
+
+				return {
+					heading: foo[selected].heading,
+					edit: {
+						table: this.$data.tables[selected],
+						inputAction: foo[selected].inputAction,
+						deleteSlug: foo[selected].deleteItem,
+						action: foo[selected].action,
+					},
+				};
+			},
+		},
+
+		methods: {
+			deleteTask(id) {
+				const index = this.$data.tables[this.$data.selected].findIndex(task => task.id === id);
+				this.$data.tables[this.$data.selected].splice(index, 1);
+				// console.log(this.$data.tables[this.$data.selected].findIndex(task => task.id === id));
+			},
 		},
 	};
 </script>
