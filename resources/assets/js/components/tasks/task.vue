@@ -4,6 +4,8 @@
 			:tasks="dueTodayList"
 			:departments="departments"
 		/>
+
+		{{ count }}
 		<div
 			class="
 			e-container
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+
 	import Edit from './edit';
 	import addTask from './add-task';
 	import showToday from './show-today';
@@ -126,6 +129,10 @@
 			dueTodayList() {
 				return this.$data.list.filter(due => due.due_today === true);
 			},
+
+			count () {
+            	return this.$store.state.count;
+       		 },
 
 		},
 

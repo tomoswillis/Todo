@@ -1,6 +1,7 @@
 /* eslint-disable no-new */
 
 import Vue from 'vue';
+import Vuex from 'vuex';
 import svg4everybody from 'svg4everybody';
 
 import './bootstrap';
@@ -26,6 +27,7 @@ import Maintenance from './components/maintenance/maintenance';
 // import PasswordResetForm from './components/accounts/password-reset-form';
 // import RegisterForm from './components/accounts/register-form';
 // import ResendVerifyCodeForm from './components/accounts/resend-verify-code-form';
+Vue.use(Vuex);
 
 Vue.filter('trans', (...args) => lang.get(...args));
 
@@ -41,8 +43,23 @@ Vue.component('Placeholder', Placeholder);
 Vue.component('Task', Task);
 Vue.component('Maintenance', Maintenance);
 
+const store = new Vuex.Store({
+	state: {
+		count: 1,
+	},
+
+	mutations: {
+		increment(state) {
+			// mutate state
+			state.count++;
+		},
+	},
+});
+
 new Vue({
 	el: '#app',
+
+	store,
 
 	// Local
 	components: {
