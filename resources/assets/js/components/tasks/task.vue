@@ -5,7 +5,6 @@
 			:departments="departments"
 		/>
 
-		{{ count }}
 		<div
 			class="
 			e-container
@@ -69,7 +68,7 @@
 			</div>
 
 			<div
-				v-for="task in $data.list"
+				v-for="task in list"
 				:key="task.id"
 			>
 				<showToday
@@ -80,7 +79,6 @@
 					:task="task"
 					:action="'/task/edit/' + task.id"
 					:departments="departments"
-					@delete="deleteTask"
 				/>
 			</div>
 		</div>
@@ -117,30 +115,24 @@
 
 		data() {
 			return {
-				list: this.$props.initialList.map(task => ({
-					...task,
-					editing: false,
-				})),
+				editing: false,
 			};
 
 		},
 
 		computed: {
 			dueTodayList() {
-				return this.$data.list.filter(due => due.due_today === true);
+				return this.$store.state.list.filter(due => due.due_today === true);
 			},
 
-			count () {
-            	return this.$store.state.count;
-       		 },
+			list() {
+				return this.$store.state.list;
+			},
 
 		},
 
-		methods: {
-			deleteTask(id) {
-				const taskIndex = this.$data.list.findIndex(task => task.id === id);
-				this.$data.list.splice(taskIndex, 1);
-			},
+		mounted() {
+			this.$store.commit('updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>

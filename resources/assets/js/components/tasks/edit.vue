@@ -83,7 +83,7 @@
 						<p
 							v-if="!$data.editing"
 							class="tasks tasks--day text-right text-3xl"
-							v-text="task.day"
+							v-text="date.dayOfMonth"
 						/>
 
 						<input
@@ -105,7 +105,7 @@
 						<div class="mb-1 py-1 rounded-lg tasks tasks--department ux w-24">
 							<p
 								v-if="!$data.editing"
-								v-text="departmentTitle"
+								v-text="$props.task.department.title"
 							/>
 
 							<select
@@ -132,7 +132,7 @@
 								v-if="!$data.editing"
 								class="tasks tasks--month text-right"
 							>
-								{{ task.month }}
+								{{ date.month }}
 							</p>
 						</div>
 					</div>
@@ -182,16 +182,16 @@
 				v-if="!$data.editing"
 				class="text-white"
 				:class="{ 'opacity-50': $data.editing }"
-				@click.prevent="deleteTask"
+				@click.prevent="$store.commit('delete', { id: $props.task.id })"
 			>
 				<i class="fa fa-trash w3-large mx-3" />
 			</button>
 
 			<button
 				v-if="$data.editing"
-				type="submit"
 				value="save"
 				class="px-10 rounded-xl tasks--department--bg flex-1"
+				@click="$store.dispatch('edit', { task: $data.form })"
 			>
 				Save
 			</button>
@@ -230,6 +230,7 @@
 		data() {
 			return {
 				form: {
+					id: this.$props.task.id,
 					title: this.$props.task.title,
 					description: this.$props.task.description,
 					due: this.$props.task.due_date,
@@ -247,18 +248,9 @@
 					month: DateTime.fromISO(this.$data.form.due).toFormat('LLLL'),
 				};
 			},
-
-			departmentTitle() {
-				return this.$props.departments.find(({ id }) => id === this.$data.form.department).title;
-			},
 		},
 
 		methods: {
-			deleteTask() {
-				axios.get(`/tasks/delete/${this.$props.task.id}`);
-				this.$emit('delete', this.$props.task.id);
-			},
-
 			setTaskEditable() {
 				this.$data.editing = true;
 			},
@@ -266,7 +258,7 @@
 			updateTask() {
 				this.$data.editing = false;
 
-				this.onSubmit();
+				// this.onSubmit();
 			},
 		},
 	};

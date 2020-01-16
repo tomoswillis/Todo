@@ -2,6 +2,7 @@
 
 namespace App\Domain\Tasks;
 
+use App\Domain\Tasks\TaskMapper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -24,9 +25,10 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
+        // $data = $request->validated();
         $data = $request->input();
 
-        Task::create([
+        $task = Task::create([
             'title' => $data['task'],
             'description' => $data['description'],
             'due_date' => $data['due'],
@@ -39,7 +41,7 @@ class TaskController extends Controller
 
         return [
             'status' => 'success',
-            'redirect' => route('task.index')
+            'task' => (new TaskMapper)->map($task),
         ];
     }
 
@@ -65,7 +67,7 @@ class TaskController extends Controller
 
     public function update(Request $request, int $task)
     {
-        Task::where('id', $task)
+         Task::where('id', $task)
             ->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
@@ -74,9 +76,11 @@ class TaskController extends Controller
                 'due_date' => $request->input('due'),
             ]);
 
+        $task = Task::find($task);
+
         return [
             'status' => 'success',
-                'redirect' => route('task.index'),
+            'task' => (new TaskMapper)->map($task),
         ];
     }
 }

@@ -171,7 +171,7 @@
 						name="description"
 					/>
 					<input
-						type="submit"
+						type="button"
 						value="Add Task"
 						class="
 							e-button
@@ -180,6 +180,7 @@
 							mt-5
 							tasks--form--add-task
 							rounded-lg"
+						@click="$store.dispatch('push', { task: $data.form })"
 					>
 				</div>
 			</form>
@@ -211,9 +212,6 @@
 					progress: 'planning',
 				},
 			};
-		},
-
-		methods: {
 		},
 	};
 </script>
