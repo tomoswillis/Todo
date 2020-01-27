@@ -9,7 +9,7 @@
 			Current Entries
 		</h2>
 		<div
-			class="bg-white p-3 mt-2 border border-grey-500 rounded tasks--shadow"
+			class="bg-transparent p-3 mt-2 rounded tasks--shadow"
 		>
 			<div
 				v-for="initialList in table"

@@ -26,7 +26,7 @@ const store = new Vuex.Store({
 
 		delete(state, { id }) {
 			// TODO:
-			// axios.get(`/tasks/delete/${id}`);
+			axios.get(`/tasks/delete/${id}`);
 
 
 			const index = state.list.findIndex(task => task.id === id);
@@ -53,7 +53,7 @@ const store = new Vuex.Store({
 
 		async edit({ commit }, { task }) {
 			// TODO: check for errors
-			console.log({task})
+			// console.log({ task });
 			const response = await axios.post(`/task/edit/${task.id}`, task);
 
 			commit('editList', { task: response.data.task });

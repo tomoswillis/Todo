@@ -72,7 +72,7 @@
 
 		computed: {
 			activeTable() {
-				const foo = {
+				const tableData = {
 					categories: {
 						heading: 'Add a Category',
 						inputAction: '/category/store',
@@ -90,12 +90,12 @@
 				const { selected } = this.$data;
 
 				return {
-					heading: foo[selected].heading,
+					heading: tableData[selected].heading,
 					edit: {
 						table: this.$data.tables[selected],
-						inputAction: foo[selected].inputAction,
-						deleteSlug: foo[selected].deleteItem,
-						action: foo[selected].action,
+						inputAction: tableData[selected].inputAction,
+						deleteSlug: tableData[selected].deleteItem,
+						action: tableData[selected].action,
 					},
 				};
 			},
