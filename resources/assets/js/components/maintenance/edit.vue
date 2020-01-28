@@ -11,7 +11,7 @@
 		<div
 			class="bg-transparent p-3 mt-2 rounded tasks--shadow"
 		>
-			<div
+			<!-- <div
 				v-for="initialList in table"
 				:key="initialList.id"
 				class="mt-5 font-normal flex justify-between border-b border-grey-300"
@@ -19,20 +19,20 @@
 				<listItems
 					:initialList="initialList"
 				/>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
 
 <script>
 	import Form from '../../mixins/form';
-	import addToTable from './addToTable';
-	import listItems from './listItems';
+	// import addToTable from './addToTable';
+	// import listItems from './listItems';
 
 	export default {
 		components: {
-			addToTable,
-			listItems,
+			// addToTable,
+
 		},
 
 		mixins: [
@@ -64,7 +64,7 @@
 		data() {
 			return {
 				form: {
-					title: this.$props.table.title,
+					// title: this.$props.table.title,
 				},
 
 				editing: false,

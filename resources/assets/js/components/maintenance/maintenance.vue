@@ -35,10 +35,24 @@
 					{{ activeTable.heading }}
 				</h2>
 
-				<edit
-					v-bind="activeTable.edit"
-					@delete="deleteTask"
+				<addToTable
+					:action="`${activeTable.edit.inputAction}`"
+					:table="activeTable.edit.table"
 				/>
+
+				<div
+					class="bg-transparent p-3 mt-2 rounded tasks--shadow"
+				>
+					<div
+						v-for="initialList in activeTable.edit"
+						:key="initialList.id"
+						class="mt-5 font-normal flex justify-between border-b border-grey-300"
+					>
+						<listItems
+							:initialList="initialList"
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -46,11 +60,13 @@
 
 <script>
 
-	import edit from './edit';
+	// import edit from './edit';
+	import listItems from './listItems';
 
 	export default {
 		components: {
 			edit,
+			listItems,
 		},
 
 		props: {
