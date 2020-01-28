@@ -182,7 +182,7 @@
 				v-if="!$data.editing"
 				class="text-white"
 				:class="{ 'opacity-50': $data.editing }"
-				@click.prevent="$store.commit('delete', { id: $props.task.id })"
+				@click.prevent="$store.dispatch('delete', { id: $props.task.id })"
 			>
 				<i class="fa fa-trash w3-large mx-3" />
 			</button>

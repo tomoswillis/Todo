@@ -96,8 +96,13 @@
 						inputAction: tableData[selected].inputAction,
 						deleteSlug: tableData[selected].deleteItem,
 						action: tableData[selected].action,
+						whichSelected: selected,
 					},
 				};
+			},
+
+			list() {
+				return this.$store.state.mM.maintenanceList;
 			},
 		},
 

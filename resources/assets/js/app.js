@@ -14,7 +14,41 @@ Vue.use(Vuex);
 
 Vue.filter('trans', (...args) => lang.get(...args));
 
+const maintenanceModule = {
+	namespaced: true,
+
+	state: {
+		maintenanceList: 'hello',
+	},
+
+	mutations: {
+		updateMaintenanceList(state, payload) {
+			state.maintenanceList = payload.list;
+		},
+
+		delete(state, { id }) {
+			const index = state.list.findIndex(task => task.id === id);
+			state.list.splice(index, 1);
+		},
+	},
+
+	actions: {
+		async delete({ commit }, { id }) {
+			// TODO: check for errors
+			// console.log({ task });
+			await axios.get(`/tasks/delete/${id}`);
+
+			commit('delete', { id });
+		},
+	},
+};
+
+
 const store = new Vuex.Store({
+	modules: {
+		mM: maintenanceModule,
+	},
+
 	state: {
 		list: [],
 	},
@@ -25,10 +59,6 @@ const store = new Vuex.Store({
 		},
 
 		delete(state, { id }) {
-			// TODO:
-			axios.get(`/tasks/delete/${id}`);
-
-
 			const index = state.list.findIndex(task => task.id === id);
 			state.list.splice(index, 1);
 		},
@@ -57,6 +87,14 @@ const store = new Vuex.Store({
 			const response = await axios.post(`/task/edit/${task.id}`, task);
 
 			commit('editList', { task: response.data.task });
+		},
+
+		async delete({ commit }, { id }) {
+			// TODO: check for errors
+			// console.log({ task });
+			await axios.get(`/tasks/delete/${id}`);
+
+			commit('delete', { id });
 		},
 	},
 });
