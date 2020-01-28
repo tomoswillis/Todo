@@ -16,41 +16,9 @@
 				:key="initialList.id"
 				class="mt-5 font-normal flex justify-between border-b border-grey-300"
 			>
-				<div v-if="!editing">
-					{{ initialList.title }}
-				</div>
-				<div v-else>
-					<h1>hello</h1>
-				</div>
-				<div>
-					<div class="flex">
-						<button
-							v-if="!$data.editing"
-							class="text-red"
-							:disabled="$data.editing"
-							@click.prevent="$data.editing = true"
-						>
-							<i class="fa fa-edit w3-large" />
-						</button>
-
-						<button
-							v-if="!$data.editing"
-							class="text-red"
-							@click.prevent="deleteTask(initialList.id)"
-						>
-							<i class="fa fa-trash w3-large mx-3" />
-						</button>
-
-						<button
-							v-if="$data.editing"
-							type="submit"
-							value="save"
-							class="px-10 rounded-xl tasks--department--bg flex-1"
-						>
-							Save
-						</button>
-					</div>
-				</div>
+				<listItems
+					:initialList="initialList"
+				/>
 			</div>
 		</div>
 	</div>
@@ -59,10 +27,12 @@
 <script>
 	import Form from '../../mixins/form';
 	import addToTable from './addToTable';
+	import listItems from './listItems';
 
 	export default {
 		components: {
 			addToTable,
+			listItems,
 		},
 
 		mixins: [
@@ -71,7 +41,7 @@
 
 		props: {
 			table: {
-				type: Array,
+				type: Object,
 				required: true,
 			},
 

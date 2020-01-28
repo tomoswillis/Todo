@@ -62,7 +62,6 @@
 
 		data() {
 			return {
-
 				selected: 'departments',
 			};
 		},
