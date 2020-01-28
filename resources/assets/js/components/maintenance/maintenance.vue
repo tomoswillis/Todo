@@ -62,15 +62,16 @@
 
 		data() {
 			return {
-				tables: {
-					departments: this.$props.initialList.departments,
-					categories: this.$props.initialList.categories,
-				},
+
 				selected: 'departments',
 			};
 		},
 
 		computed: {
+			list() {
+				return this.$store.state.mM.list;
+			},
+
 			activeTable() {
 				const tableData = {
 					categories: {
@@ -92,7 +93,7 @@
 				return {
 					heading: tableData[selected].heading,
 					edit: {
-						table: this.$data.tables[selected],
+						table: this.list[selected],
 						inputAction: tableData[selected].inputAction,
 						deleteSlug: tableData[selected].deleteItem,
 						action: tableData[selected].action,
@@ -100,10 +101,12 @@
 					},
 				};
 			},
+		},
 
-			list() {
-				return this.$store.state.mM.maintenanceList;
-			},
+		mounted() {
+			this.$store.commit('mM/updateList', { list: this.$props.initialList });
+
+			// store.commit('a/increment');
 		},
 
 		methods: {

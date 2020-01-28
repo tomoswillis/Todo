@@ -18,12 +18,12 @@ const maintenanceModule = {
 	namespaced: true,
 
 	state: {
-		maintenanceList: 'hello',
+		list: [],
 	},
 
 	mutations: {
-		updateMaintenanceList(state, payload) {
-			state.maintenanceList = payload.list;
+		updateList(state, payload) {
+			state.list = payload.list;
 		},
 
 		delete(state, { id }) {
