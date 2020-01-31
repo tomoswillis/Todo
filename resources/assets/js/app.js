@@ -25,10 +25,6 @@ const store = new Vuex.Store({
 		},
 
 		delete(state, { id }) {
-			// TODO:
-			axios.get(`/tasks/delete/${id}`);
-
-
 			const index = state.list.findIndex(task => task.id === id);
 			state.list.splice(index, 1);
 		},
@@ -57,6 +53,14 @@ const store = new Vuex.Store({
 			const response = await axios.post(`/task/edit/${task.id}`, task);
 
 			commit('editList', { task: response.data.task });
+		},
+
+		async delete({ commit }, { id }) {
+			// TODO: check for errors
+			// console.log({ task });
+			await axios.get(`/tasks/delete/${id}`);
+
+			commit('delete', { id });
 		},
 	},
 });
