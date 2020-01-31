@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<addToTable
-			:action="`${this.$props.inputAction}`"
-			:table="table"
+			:type="$props.type"
 		/>
 
 		<h2 class="tasks--title text-2xl mb-3">
@@ -57,7 +56,6 @@
 </template>
 
 <script>
-	import Form from '../../mixins/form';
 	import addToTable from './addToTable';
 
 	export default {
@@ -65,29 +63,15 @@
 			addToTable,
 		},
 
-		mixins: [
-			Form,
-		],
-
 		props: {
 			table: {
 				type: Array,
 				required: true,
 			},
 
-			action: {
+			type: {
 				type: String,
-				default: '',
-			},
-
-			inputAction: {
-				type: String,
-				default: '',
-			},
-
-			deleteSlug: {
-				type: String,
-				default: '',
+				required: true,
 			},
 		},
 

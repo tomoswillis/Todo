@@ -3,13 +3,12 @@
 		<form
 			slot="inner"
 			name="task"
-			:disabled="$data.isSubmitting"
 			novalidate
-			@submit.prevent="updateTask"
+			@submit.prevent="Submit"
 		>
 			<div class="mb-6 flex flex-col items-end mb-6">
 				<input
-					v-model="$data.form.title"
+					v-model="$data.title"
 					class="
 						e-input
 						rounded
@@ -35,38 +34,26 @@
 </template>
 
 <script>
-	import Form from '../../mixins/form';
+
 
 	export default {
-		mixins: [
-			Form,
-		],
-
 		props: {
-			action: {
+			type: {
 				type: String,
-				default: '',
-			},
-
-			table: {
-				type: Array,
 				required: true,
 			},
 		},
 
 		data() {
 			return {
-				form: {
-					title: this.$props.table.title,
-				},
+				title: '',
 			};
 		},
 
 		methods: {
-			updateTask() {
-				this.$data.editing = false;
-
-				this.onSubmit();
+			Submit() {
+				this.$store.dispatch('maintenance/push', { title: this.$data.title, type: this.$props.type });
+				this.$data.title = '';
 			},
 		},
 	};

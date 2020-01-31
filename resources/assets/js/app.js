@@ -68,6 +68,51 @@ const store = new Vuex.Store({
 				},
 			},
 		},
+
+		maintenance: {
+			namespaced: true,
+
+			state: {
+				categories: [],
+				departments: [],
+			},
+
+			mutations: {
+				updatelist(state, payload) {
+					state.categories = payload.list.categories; //eslint-disable-line
+					state.departments = payload.list.departments; //eslint-disable-line
+				},
+
+				addToList(state, { data, type }) {
+					state[type].push(data);
+				},
+			},
+
+			actions: {
+				async push({ commit }, { title, type }) {
+					// TODO: check for errors
+					const response = await axios.post(`/${type}/store`, { title });
+
+					const stateNames = {
+						category: 'categories',
+						department: 'departments',
+					};
+
+					commit('addToList', {
+						data: response.data[type],
+						type: stateNames[type],
+					});
+				},
+
+				async delete({ commit }, { id }) {
+					// TODO: check for errors
+					// console.log({ task });
+					await axios.get(`/tasks/delete/${id}`);
+
+					commit('delete', { id });
+				},
+			},
+		},
 	},
 
 

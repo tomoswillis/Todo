@@ -37,7 +37,6 @@
 
 				<edit
 					v-bind="activeTable.edit"
-					@delete="deleteTask"
 				/>
 			</div>
 		</div>
@@ -62,10 +61,6 @@
 
 		data() {
 			return {
-				tables: {
-					departments: this.$props.initialList.departments,
-					categories: this.$props.initialList.categories,
-				},
 				selected: 'departments',
 			};
 		},
@@ -75,15 +70,11 @@
 				const tableData = {
 					categories: {
 						heading: 'Add a Category',
-						inputAction: '/category/store',
-						action: '',
-						deleteItem: '/category/delete/',
+						type: 'category',
 					},
 					departments: {
 						heading: 'Add a Department',
-						inputAction: '/department/store',
-						action: '',
-						deleteItem: '/department/delete/',
+						type: 'department',
 					},
 				};
 
@@ -92,21 +83,15 @@
 				return {
 					heading: tableData[selected].heading,
 					edit: {
-						table: this.$data.tables[selected],
-						inputAction: tableData[selected].inputAction,
-						deleteSlug: tableData[selected].deleteItem,
-						action: tableData[selected].action,
+						table: this.$store.state.maintenance[selected],
+						type: tableData[selected].type,
 					},
 				};
 			},
 		},
 
-		methods: {
-			deleteTask(id) {
-				const index = this.$data.tables[this.$data.selected].findIndex(task => task.id === id);
-				this.$data.tables[this.$data.selected].splice(index, 1);
-				// console.log(this.$data.tables[this.$data.selected].findIndex(task => task.id === id));
-			},
+		mounted() {
+			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>

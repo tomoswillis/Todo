@@ -25,13 +25,16 @@ class CategoryController extends Controller
     {
         $data = $request->input();
 
-        Category::create([
+        $category = Category::create([
             'title' => $data['title'],
         ]);
 
         return [
             'status' => 'success',
-            'redirect' => route('maintenance.show')
+            'category' => [
+                'id' => $category->id,
+                'title' => $category->title,
+            ],
         ];
     }
 
