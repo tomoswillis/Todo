@@ -180,7 +180,7 @@
 							mt-5
 							tasks--form--add-task
 							rounded-lg"
-						@click="$store.dispatch('push', { task: $data.form })"
+						@click="$store.dispatch('tasks/push', { task: $data.form })"
 					>
 				</div>
 			</form>

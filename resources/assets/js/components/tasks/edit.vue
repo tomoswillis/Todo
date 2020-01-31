@@ -182,7 +182,7 @@
 				v-if="!$data.editing"
 				class="text-white"
 				:class="{ 'opacity-50': $data.editing }"
-				@click.prevent="$store.dispatch('delete', { id: $props.task.id })"
+				@click.prevent="$store.dispatch('tasks/delete', { id: $props.task.id })"
 			>
 				<i class="fa fa-trash w3-large mx-3" />
 			</button>
@@ -191,7 +191,7 @@
 				v-if="$data.editing"
 				value="save"
 				class="px-10 rounded-xl tasks--department--bg flex-1"
-				@click="$store.dispatch('edit', { task: $data.form })"
+				@click="$store.dispatch('tasks/edit', { task: $data.form })"
 			>
 				Save
 			</button>

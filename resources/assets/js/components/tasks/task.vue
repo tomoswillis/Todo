@@ -122,17 +122,17 @@
 
 		computed: {
 			dueTodayList() {
-				return this.$store.state.list.filter(due => due.due_today === true);
+				return this.$store.state.tasks.list.filter(due => due.due_today === true);
 			},
 
 			list() {
-				return this.$store.state.list;
+				return this.$store.state.tasks.list;
 			},
 
 		},
 
 		mounted() {
-			this.$store.commit('updatelist', { list: this.$props.initialList });
+			this.$store.commit('tasks/updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>
