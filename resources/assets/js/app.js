@@ -86,6 +86,11 @@ const store = new Vuex.Store({
 				addToList(state, { data, type }) {
 					state[type].push(data);
 				},
+
+				delete(state, { id, type }) {
+					const index = store.state.maintenance[type].findIndex(title => title.id === id);
+					store.state.maintenance[type].splice(index, 1);
+				},
 			},
 
 			actions: {
@@ -104,18 +109,18 @@ const store = new Vuex.Store({
 					});
 				},
 
-				async delete({ commit }, { id }) {
+				async delete({ commit }, { id, type }) {
 					// TODO: check for errors
-					// console.log({ task });
-					await axios.get(`/tasks/delete/${id}`);
-
-					commit('delete', { id });
+					await axios.get(`/${type}/delete/${id}`);
+					const stateNames = {
+						category: 'categories',
+						department: 'departments',
+					};
+					commit('delete', { id, type: stateNames[type] });
 				},
 			},
 		},
 	},
-
-
 });
 
 new Vue({

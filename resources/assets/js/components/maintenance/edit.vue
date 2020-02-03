@@ -35,7 +35,7 @@
 						<button
 							v-if="!$data.editing"
 							class="text-red"
-							@click.prevent="deleteTask(initialList.id)"
+							@click.prevent="deleteItem(initialList.id)"
 						>
 							<i class="fa fa-trash w3-large mx-3" />
 						</button>
@@ -86,16 +86,18 @@
 		},
 
 		methods: {
-			deleteTask(id) {
-				axios.get(this.$props.deleteSlug + id);
-
-				this.$emit('delete', id);
-			},
 
 			updateTask() {
 				this.$data.editing = false;
 
 				this.onSubmit();
+			},
+
+			deleteItem(id) {
+				this.$store.dispatch('maintenance/delete', {
+					id: id,
+					type: this.$props.type,
+				});
 			},
 		},
 	};

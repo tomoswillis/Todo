@@ -52,7 +52,10 @@
 
 		methods: {
 			Submit() {
-				this.$store.dispatch('maintenance/push', { title: this.$data.title, type: this.$props.type });
+				this.$store.dispatch('maintenance/push', {
+					title: this.$data.title,
+					type: this.$props.type,
+				});
 				this.$data.title = '';
 			},
 		},
