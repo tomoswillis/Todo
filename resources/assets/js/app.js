@@ -96,27 +96,29 @@ const store = new Vuex.Store({
 			actions: {
 				async push({ commit }, { title, type }) {
 					// TODO: check for errors
-					const response = await axios.post(`/${type}/store`, { title });
-
 					const stateNames = {
-						category: 'categories',
-						department: 'departments',
+						categories: 'category',
+						departments: 'department',
 					};
 
+					const response = await axios.post(`/${stateNames[type]}/store`, { title });
+
 					commit('addToList', {
-						data: response.data[type],
-						type: stateNames[type],
+						data: response.data[stateNames[type]],
+						type,
 					});
 				},
 
 				async delete({ commit }, { id, type }) {
 					// TODO: check for errors
-					await axios.get(`/${type}/delete/${id}`);
+
+
 					const stateNames = {
-						category: 'categories',
-						department: 'departments',
+						categories: 'category',
+						departments: 'department',
 					};
-					commit('delete', { id, type: stateNames[type] });
+					await axios.get(`/${stateNames[type]}/delete/${id}`);
+					commit('delete', { id, type});
 				},
 			},
 		},

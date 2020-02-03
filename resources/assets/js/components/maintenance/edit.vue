@@ -1,54 +1,41 @@
 <template>
 	<div>
-		<addToTable
-			:type="$props.type"
-		/>
-
-		<h2 class="tasks--title text-2xl mb-3">
-			Current Entries
-		</h2>
 		<div
-			class="bg-transparent p-3 mt-2 rounded tasks--shadow"
+			class="mt-5 font-normal flex justify-between border-b border-grey-300"
 		>
-			<div
-				v-for="initialList in table"
-				:key="initialList.id"
-				class="mt-5 font-normal flex justify-between border-b border-grey-300"
-			>
-				<div v-if="!editing">
-					{{ initialList.title }}
-				</div>
-				<div v-else>
-					<h1>hello</h1>
-				</div>
-				<div>
-					<div class="flex">
-						<button
-							v-if="!$data.editing"
-							class="text-red"
-							:disabled="$data.editing"
-							@click.prevent="$data.editing = true"
-						>
-							<i class="fa fa-edit w3-large" />
-						</button>
+			<div v-if="!editing">
+				{{ table.title }}
+			</div>
+			<div v-else>
+				<h1>hello</h1>
+			</div>
+			<div>
+				<div class="flex">
+					<button
+						v-if="!$data.editing"
+						class="text-red"
+						:disabled="$data.editing"
+						@click.prevent="$data.editing = true"
+					>
+						<i class="fa fa-edit w3-large" />
+					</button>
 
-						<button
-							v-if="!$data.editing"
-							class="text-red"
-							@click.prevent="deleteItem(initialList.id)"
-						>
-							<i class="fa fa-trash w3-large mx-3" />
-						</button>
+					<button
+						v-if="!$data.editing"
+						class="text-red"
+						@click.prevent="deleteItem(table.id)"
+					>
+						<i class="fa fa-trash w3-large mx-3" />
+					</button>
 
-						<button
-							v-if="$data.editing"
-							type="submit"
-							value="save"
-							class="px-10 rounded-xl tasks--department--bg flex-1"
-						>
-							Save
-						</button>
-					</div>
+					<button
+						v-if="$data.editing"
+						type="submit"
+						value="save"
+						class="px-10 rounded-xl tasks--department--bg flex-1"
+					>
+						Save
+					</button>
 				</div>
 			</div>
 		</div>
@@ -56,12 +43,7 @@
 </template>
 
 <script>
-	import addToTable from './addToTable';
-
 	export default {
-		components: {
-			addToTable,
-		},
 
 		props: {
 			table: {
@@ -82,6 +64,7 @@
 				},
 
 				editing: false,
+
 			};
 		},
 
@@ -89,13 +72,13 @@
 
 			updateTask() {
 				this.$data.editing = false;
-
 				this.onSubmit();
 			},
 
-			deleteItem(id) {
+			deleteItem() {
+				console.log(this.$props.table);
 				this.$store.dispatch('maintenance/delete', {
-					id: id,
+					id: this.$props.table.id,
 					type: this.$props.type,
 				});
 			},

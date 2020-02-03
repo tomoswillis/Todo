@@ -35,9 +35,29 @@
 					{{ activeTable.heading }}
 				</h2>
 
-				<edit
-					v-bind="activeTable.edit"
+				<addToTable
+					:type="selected"
 				/>
+
+				<h2 class="tasks--title text-2xl mb-3">
+					Current Entries
+				</h2>
+
+				<div
+					class="bg-transparent p-3 mt-2 rounded tasks--shadow"
+				>
+					<div
+						v-for="table in activeTable.edit.table"
+						v-bind="activeTable.edit"
+						:key="table.id"
+					>
+						<edit
+							:table="activeTable.edit.table"
+							:type="selected"
+
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -46,10 +66,12 @@
 <script>
 
 	import edit from './edit';
+	import addToTable from './addToTable';
 
 	export default {
 		components: {
 			edit,
+			addToTable,
 		},
 
 		props: {
@@ -91,7 +113,7 @@
 		},
 
 		mounted() {
-			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList });
+			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList, edijtior: false });
 		},
 	};
 </script>
