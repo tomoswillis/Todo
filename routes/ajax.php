@@ -22,6 +22,10 @@ Route::get('/department/delete/{department}')
     ->uses('Departments\DepartmentController@destroy')
     ->name('department.destroy');
 
+Route::post('/department/edit/{department}')
+    ->uses('Departments\DepartmentController@update')
+    ->name('department.update');
+
 Route::post('/category/store')
     ->uses('Categories\CategoryController@store')
     ->name('category.show');
@@ -29,3 +33,7 @@ Route::post('/category/store')
 Route::get('/category/delete/{category}')
     ->uses('Categories\CategoryController@destroy')
     ->name('category.destroy');
+
+Route::post('/category/edit/{category}')
+    ->uses('Categories\CategoryController@update')
+    ->name('category.update');

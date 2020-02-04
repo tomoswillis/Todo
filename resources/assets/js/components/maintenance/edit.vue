@@ -6,9 +6,21 @@
 			<div v-if="!editing">
 				{{ table.title }}
 			</div>
-			<div v-else>
-				<h1>hello</h1>
-			</div>
+			<input
+				v-else
+				v-model="$data.form.title"
+				class="
+					bg-transparent
+					border-0
+					e-input
+					p-0
+					pl-0
+					tasks
+					tasks--title
+					text-xl
+					text-grey-600"
+				type="text"
+			>
 			<div>
 				<div class="flex">
 					<button
@@ -33,6 +45,7 @@
 						type="submit"
 						value="save"
 						class="px-10 rounded-xl tasks--department--bg flex-1"
+						@click="editItem"
 					>
 						Save
 					</button>
@@ -60,6 +73,7 @@
 		data() {
 			return {
 				form: {
+					id: this.$props.table.id,
 					title: this.$props.table.title,
 				},
 
@@ -80,6 +94,15 @@
 					id: this.$props.table.id,
 					type: this.$props.type,
 				});
+			},
+
+			editItem() {
+				this.$store.dispatch('maintenance/edit', {
+					foo: this.$data.form,
+					id: this.$props.table.id,
+					type: this.$props.type,
+				});
+				this.$data.editing = false;
 			},
 		},
 	};

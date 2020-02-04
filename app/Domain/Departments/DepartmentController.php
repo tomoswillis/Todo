@@ -4,6 +4,7 @@ namespace App\Domain\Departments;
 
 use App\Http\Controllers\Controller;
 use App\Domain\Departments\DepartmentMapper;
+use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
@@ -43,5 +44,20 @@ class DepartmentController extends Controller
         }
 
         return;
+    }
+
+    public function update(Request $request, int $department)
+    {
+        Department::where('id', $department)
+            ->update([
+                'title' => $request->input('title'),
+            ]);
+
+        $department = Department::find($department);
+
+        return [
+            'status' => 'success',
+            'department' => (new DepartmentMapper)->map($department),
+        ];
     }
 }

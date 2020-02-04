@@ -3,6 +3,7 @@
 namespace App\Domain\Categories;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -45,5 +46,23 @@ class CategoryController extends Controller
         }
 
         return;
+    }
+
+    public function update(Request $request, int $category)
+    {
+        Category::where('id', $category)
+            ->update([
+                'title' => $request->input('title'),
+            ]);
+
+        $category = Category::find($category);
+
+        return [
+            'status' => 'success',
+            'category' => [
+                'id' => $category->id,
+                'title' => $category->title,
+            ],
+        ];
     }
 }
