@@ -118,7 +118,7 @@ const store = new Vuex.Store({
 						departments: 'department',
 					};
 					await axios.get(`/${stateNames[type]}/delete/${id}`);
-					commit('delete', { id, type});
+					commit('delete', { id, type });
 				},
 			},
 		},

@@ -48,13 +48,12 @@
 				>
 					<div
 						v-for="table in activeTable.edit.table"
-						v-bind="activeTable.edit"
 						:key="table.id"
+						v-bind="activeTable.edit"
 					>
 						<edit
 							:table="table"
 							:type="selected"
-
 						/>
 					</div>
 				</div>
@@ -62,7 +61,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
 
 	import edit from './edit';

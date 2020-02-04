@@ -76,7 +76,6 @@
 			},
 
 			deleteItem() {
-				console.log(this.$props.table.id);
 				this.$store.dispatch('maintenance/delete', {
 					id: this.$props.table.id,
 					type: this.$props.type,
