@@ -17,7 +17,6 @@
 					pl-0
 					tasks
 					tasks--title
-					text-xl
 					text-grey-600"
 				type="text"
 			>
@@ -44,7 +43,7 @@
 						v-if="$data.editing"
 						type="submit"
 						value="save"
-						class="px-10 rounded-xl tasks--department--bg flex-1"
+						class="px-10 rounded-xl bg-green-200 tasks flex-1 maintenance--save"
 						@click="editItem"
 					>
 						Save
@@ -98,7 +97,7 @@
 
 			editItem() {
 				this.$store.dispatch('maintenance/edit', {
-					foo: this.$data.form,
+					maintenanceObject: this.$data.form,
 					id: this.$props.table.id,
 					type: this.$props.type,
 				});

@@ -1,12 +1,8 @@
 <template>
-	<div class="bg-grey-100 flex px-5 h-screen tasks--title">
+	<div class="	px-5 h-screen tasks--title">
 		<div
 			class="
-				bg-white
-				mr-5
 				text-center
-				border
-				border-grey-500
 				min-w-screen
 			"
 		>
@@ -29,7 +25,7 @@
 			</div>
 		</div>
 
-		<div class="w-screen mt-5">
+		<div class=" mt-5">
 			<div>
 				<h2 class="tasks--title text-2xl mb-3">
 					{{ activeTable.heading }}

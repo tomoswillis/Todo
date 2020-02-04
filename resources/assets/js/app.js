@@ -92,11 +92,11 @@ const store = new Vuex.Store({
 					store.state.maintenance[type].splice(index, 1);
 				},
 
-				editList(state, { foo, type }) {
-					console.log(foo);
+				editList(state, { maintenanceObject, type }) {
+					console.log(maintenanceObject);
 
-					const index = store.state.maintenance[type].findIndex(title => title.id === foo.id);
-					store.state.maintenance[type].splice(index, 1, foo);
+					const index = store.state.maintenance[type].findIndex(title => title.id === maintenanceObject.id);//eslint-disable-line
+					store.state.maintenance[type].splice(index, 1, maintenanceObject);
 				},
 			},
 
@@ -124,14 +124,14 @@ const store = new Vuex.Store({
 					commit('delete', { id, type });
 				},
 
-				async edit({ commit }, { foo, type }) {
+				async edit({ commit }, { maintenanceObject, type }) {
 					const stateNames = {
 						categories: 'category',
 						departments: 'department',
 					};
-					const response = await axios.post(`/${stateNames[type]}/edit/${foo.id}`, foo);
+					const response = await axios.post(`/${stateNames[type]}/edit/${maintenanceObject.id}`, maintenanceObject);
 
-					commit('editList', { foo: response.data[stateNames[type]], type });
+					commit('editList', { maintenanceObject: response.data[stateNames[type]], type });
 				},
 			},
 		},
