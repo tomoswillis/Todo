@@ -2,6 +2,7 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueRouter from 'vue-router';
 import svg4everybody from 'svg4everybody';
 
 import './bootstrap';
@@ -11,6 +12,7 @@ import Task from './components/tasks/task';
 import Maintenance from './components/maintenance/maintenance';
 
 Vue.use(Vuex);
+// Vue.use(VueRouter);
 
 Vue.filter('trans', (...args) => lang.get(...args));
 
@@ -93,8 +95,6 @@ const store = new Vuex.Store({
 				},
 
 				editList(state, { maintenanceObject, type }) {
-					console.log(maintenanceObject);
-
 					const index = store.state.maintenance[type].findIndex(title => title.id === maintenanceObject.id);//eslint-disable-line
 					store.state.maintenance[type].splice(index, 1, maintenanceObject);
 				},
@@ -141,11 +141,17 @@ const store = new Vuex.Store({
 new Vue({
 	el: '#app',
 	store,
+	router: new VueRouter({
+		routes: [
+			{ path: '/index', component: Task },
+			{ path: '/maintenance', component: Maintenance },
+		], // short for `routes: routes`
+	}),
 
 	// Local
 	components: {
-		Task,
-		Maintenance,
+		// Task,
+		// Maintenance,
 	},
 
 	mounted() {
