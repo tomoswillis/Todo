@@ -1,5 +1,5 @@
 <template>
-	<div class="	px-5 h-screen tasks--title">
+	<div class="px-5 h-screen tasks--title">
 		<div
 			class="
 				text-center
@@ -44,7 +44,7 @@
 				>
 					<div
 						v-for="table in activeTable.edit.table"
-						:key="table.id"
+						:key="`${table.id}${$data.selected}`"
 						v-bind="activeTable.edit"
 					>
 						<edit
