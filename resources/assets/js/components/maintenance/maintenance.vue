@@ -52,7 +52,7 @@
 						:key="table.id"
 					>
 						<edit
-							:table="activeTable.edit.table"
+							:table="table"
 							:type="selected"
 
 						/>
@@ -113,7 +113,7 @@
 		},
 
 		mounted() {
-			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList, edijtior: false });
+			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>
