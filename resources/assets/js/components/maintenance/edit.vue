@@ -47,7 +47,7 @@
 
 		props: {
 			table: {
-				type: Array,
+				type: Object,
 				required: true,
 			},
 
