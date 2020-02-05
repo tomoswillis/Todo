@@ -208,11 +208,12 @@
 		},
 
 		data() {
+			const today = new Date().toISOString().slice(0, 10);
 			return {
 				form: {
 					task: '',
 					description: '',
-					due: '2020-01-01',
+					due: today,
 					department: '1',
 					progress: 'planning',
 				},

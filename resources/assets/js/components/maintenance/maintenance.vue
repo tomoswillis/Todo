@@ -60,7 +60,6 @@
 	</div>
 </template>
 <script>
-
 	import edit from './edit';
 	import addToTable from './addToTable';
 

@@ -91,7 +91,6 @@
 </template>
 
 <script>
-
 	import Edit from './edit';
 	import addTask from './add-task';
 	import showToday from './show-today';
