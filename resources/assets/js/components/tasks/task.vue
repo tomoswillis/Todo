@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<showToday
-			:tasks="dueTodayList"
-			:departments="departments"
-		/>
+		<showToday />
 
 		<div
 			class="
@@ -75,18 +72,11 @@
 						v-if="(task.due_date === $props.today)"
 					/>
 
-					<edit
-						:task="task"
-						:action="'/task/edit/' + task.id"
-						:departments="departments"
-					/>
+					<edit :task="task" />
 				</div>
 			</transitionGroup>
 		</div>
-		<add-Task
-			:action="'/task/store'"
-			:departments="departments"
-		/>
+		<add-Task />
 	</div>
 </template>
 
@@ -100,18 +90,6 @@
 			Edit,
 			addTask,
 			showToday,
-		},
-
-		props: {
-			departments: {
-				type: Array,
-				required: true,
-			},
-
-			initialList: {
-				type: Array,
-				required: true,
-			},
 		},
 
 		data() {
@@ -130,10 +108,6 @@
 				return this.$store.state.tasks.list;
 			},
 
-		},
-
-		mounted() {
-			this.$store.commit('tasks/updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>

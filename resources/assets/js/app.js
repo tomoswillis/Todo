@@ -15,6 +15,24 @@ Vue.use(Vuex);
 Vue.filter('trans', (...args) => lang.get(...args));
 
 const store = new Vuex.Store({
+	mutations: {
+		init(state, { departments, tasks }) {
+			state.tasks.list = tasks; //eslint-disable-line
+			state.maintenance.departments = departments; //eslint-disable-line
+		},
+	},
+
+	actions: {
+		async init({ commit }) {
+			const { data } = await axios.get('/task/list');
+
+			commit('init', {
+				tasks: data.tasks.model.tasks,
+				departments: data.tasks.model.departments,
+			});
+		},
+	},
+
 	modules: {
 		tasks: {
 			namespaced: true,
@@ -148,5 +166,7 @@ new Vue({
 
 	mounted() {
 		svg4everybody();
+
+		this.$store.dispatch('init');
 	},
 });

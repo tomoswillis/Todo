@@ -69,13 +69,6 @@
 			addToTable,
 		},
 
-		props: {
-			initialList: {
-				type: Object,
-				required: true,
-			},
-		},
-
 		data() {
 			return {
 				selected: 'departments',
@@ -105,10 +98,6 @@
 					},
 				};
 			},
-		},
-
-		mounted() {
-			this.$store.commit('maintenance/updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>

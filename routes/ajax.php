@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/task/list')
+    ->uses('Tasks\TaskController@list')
+    ->name('task.list');
+
 Route::post('/task/edit/{task}')
     ->uses('Tasks\TaskController@update')
     ->name('task.update');

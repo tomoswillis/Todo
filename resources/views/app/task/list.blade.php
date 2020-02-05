@@ -1,11 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
-    <task
-        :initial-list='@json($model['tasks'])'
-        :departments='@json($model['departments'])'
-        :today='@json($model['today'])'
-    />
+    <task />
 @endsection
 
 <style>
