@@ -180,7 +180,7 @@
 							mt-5
 							tasks--form--add-task
 							rounded-lg"
-						@click="$store.dispatch('tasks/push', { task: $data.form })"
+						@click="addTask"
 					>
 				</div>
 			</form>
@@ -208,16 +208,32 @@
 		},
 
 		data() {
-			const today = new Date().toISOString().slice(0, 10);
 			return {
 				form: {
 					task: '',
 					description: '',
-					due: today,
+					due: this.today(),
 					department: '1',
 					progress: 'planning',
 				},
 			};
+		},
+
+		methods: {
+			today() {
+				return new Date().toISOString().slice(0, 10);
+			},
+
+			addTask() {
+				this.$store.dispatch('tasks/push', { task: this.$data.form });
+				this.$data.form = {
+					task: '',
+					description: '',
+					due: this.today(),
+					department: '1',
+					progress: 'planning',
+				};
+			},
 		},
 	};
 </script>
