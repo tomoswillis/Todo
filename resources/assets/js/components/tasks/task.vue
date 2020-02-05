@@ -85,6 +85,7 @@
 		</div>
 		<add-Task
 			:action="'/task/store'"
+			:departments="departments"
 		/>
 	</div>
 </template>

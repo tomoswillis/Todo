@@ -121,12 +121,12 @@
 									h-10
 									w-full"
 							>
-								<option value="1">
-									UX
-								</option>
-								<option value="2">
-									Backend
-								</option>
+								<option
+									v-for="department in $props.departments"
+									:key="department.id"
+									:value="department.id"
+									v-text="department.title"
+								/>
 							</select>
 						</div>
 					</div>
@@ -199,6 +199,11 @@
 			action: {
 				type: String,
 				default: '',
+			},
+
+			departments: {
+				type: Array,
+				required: true,
 			},
 		},
 
