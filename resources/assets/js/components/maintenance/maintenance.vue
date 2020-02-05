@@ -40,18 +40,20 @@
 				</h2>
 
 				<div
-					class="bg-transparent p-3 mt-2 rounded tasks--shadow"
+					class="bg-transparent p-3 mt-2 rounded tasks--shadow ani"
 				>
-					<div
-						v-for="table in activeTable.edit.table"
-						:key="`${table.id}${$data.selected}`"
-						v-bind="activeTable.edit"
-					>
-						<edit
-							:table="table"
-							:type="selected"
-						/>
-					</div>
+					<transitionGroup name="slide-fade">
+						<div
+							v-for="table in activeTable.edit.table"
+							:key="`${table.id}${$data.selected}`"
+							v-bind="activeTable.edit"
+						>
+							<edit
+								:table="table"
+								:type="selected"
+							/>
+						</div>
+					</transitionGroup>
 				</div>
 			</div>
 		</div>

@@ -244,7 +244,7 @@
 		computed: {
 			date() {
 				return {
-					dayOfMonth: DateTime.fromISO(this.$data.form.due).day,
+					dayOfMonth: DateTime.fromISO(this.$data.form.due).toFormat('dd'),
 					month: DateTime.fromISO(this.$data.form.due).toFormat('LLLL'),
 				};
 			},

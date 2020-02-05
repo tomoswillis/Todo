@@ -66,21 +66,22 @@
 					</select>
 				</div>
 			</div>
+			<transitionGroup name="slide-fade">
+				<div
+					v-for="task in list"
+					:key="task.id"
+				>
+					<showToday
+						v-if="(task.due_date === $props.today)"
+					/>
 
-			<div
-				v-for="task in list"
-				:key="task.id"
-			>
-				<showToday
-					v-if="(task.due_date === $props.today)"
-				/>
-
-				<edit
-					:task="task"
-					:action="'/task/edit/' + task.id"
-					:departments="departments"
-				/>
-			</div>
+					<edit
+						:task="task"
+						:action="'/task/edit/' + task.id"
+						:departments="departments"
+					/>
+				</div>
+			</transitionGroup>
 		</div>
 		<add-Task
 			:action="'/task/store'"

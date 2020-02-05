@@ -112,3 +112,21 @@
     background: linear-gradient(180deg, rgb(240, 240, 240) 0%, rgba(255,255,255,1) 100%);
 
 }
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.ani {
+    transition: all 5s;
+}

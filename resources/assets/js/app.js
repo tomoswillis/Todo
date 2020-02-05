@@ -93,8 +93,6 @@ const store = new Vuex.Store({
 				},
 
 				editList(state, { maintenanceObject, type }) {
-					console.log(maintenanceObject);
-
 					const index = store.state.maintenance[type].findIndex(title => title.id === maintenanceObject.id);//eslint-disable-line
 					store.state.maintenance[type].splice(index, 1, maintenanceObject);
 				},
