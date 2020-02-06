@@ -68,7 +68,6 @@
 					v-for="task in $store.state.tasks.list"
 					:key="task.id"
 				>
-
 					<edit :task="task" />
 				</div>
 			</transitionGroup>

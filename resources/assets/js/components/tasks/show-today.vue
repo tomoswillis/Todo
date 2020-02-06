@@ -106,15 +106,10 @@
 <script>
 
 	export default {
-
 		computed: {
 			todayView() {
 				return this.$store.state.tasks.list.filter(due => due.due_today === true);
 			},
-		},
-		mounted() {
-			console.log(this.todayView);
-
 		},
 	};
 </script>
