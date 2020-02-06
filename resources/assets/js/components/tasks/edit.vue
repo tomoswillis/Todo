@@ -119,7 +119,7 @@
 									w-full"
 							>
 								<option
-									v-for="department in $store.state.maintenance.departments"
+									v-for="department in departments"
 									:key="department.id"
 									:value="department.id"
 									v-text="department.title"
@@ -201,6 +201,7 @@
 
 
 <script>
+	import { mapGetters } from 'vuex';
 	import { DateTime } from 'luxon';
 
 	import Form from '../../mixins/form';
@@ -238,6 +239,8 @@
 		},
 
 		computed: {
+			...mapGetters('maintenance', ['departments']),
+
 			date() {
 				return {
 					dayOfMonth: DateTime.fromISO(this.$data.form.due).toFormat('dd'),

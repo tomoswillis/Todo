@@ -6,6 +6,12 @@ export default {
 		departments: [],
 	},
 
+	getters: {
+		departments({ departments }) {
+			return departments;
+		},
+	},
+
 	mutations: {
 		updatelist(state, payload) {
 			state.categories = payload.list.categories; //eslint-disable-line
