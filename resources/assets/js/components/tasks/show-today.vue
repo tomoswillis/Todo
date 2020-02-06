@@ -3,7 +3,7 @@
 		<h1 class="tasks tasks--title text-3xl uppercase mb-3 text-medium">
 			Due today
 		</h1>
-		<div v-if="!tasks.length > 0">
+		<div v-if="!todayView > 0">
 			<h2 class="tasks text-md mb-3 text-thin">
 				No tasks due today
 			</h2>
@@ -11,7 +11,7 @@
 
 		<div v-else>
 			<div
-				v-for="task in $props.tasks"
+				v-for="task in todayView"
 				:key="task.id"
 			>
 				<div class="flex mb-10">
@@ -106,11 +106,15 @@
 <script>
 
 	export default {
-		props: {
-			tasks: {
-				type: Array,
-				required: true,
+
+		computed: {
+			todayView() {
+				return this.$store.state.tasks.list.filter(due => due.due_today === true);
 			},
+		},
+		mounted() {
+			console.log(this.todayView);
+
 		},
 	};
 </script>

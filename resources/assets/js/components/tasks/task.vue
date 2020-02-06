@@ -65,12 +65,9 @@
 			</div>
 			<transitionGroup name="slide-fade">
 				<div
-					v-for="task in list"
+					v-for="task in $store.state.tasks.list"
 					:key="task.id"
 				>
-					<showToday
-						v-if="(task.due_date === $props.today)"
-					/>
 
 					<edit :task="task" />
 				</div>
@@ -100,9 +97,6 @@
 		},
 
 		computed: {
-			dueTodayList() {
-				return this.$store.state.tasks.list.filter(due => due.due_today === true);
-			},
 
 			list() {
 				return this.$store.state.tasks.list;

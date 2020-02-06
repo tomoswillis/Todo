@@ -122,7 +122,7 @@
 									w-full"
 							>
 								<option
-									v-for="department in $props.departments"
+									v-for="department in departments"
 									:key="department.id"
 									:value="department.id"
 									v-text="department.title"
@@ -200,11 +200,6 @@
 				type: String,
 				default: '',
 			},
-
-			departments: {
-				type: Array,
-				required: true,
-			},
 		},
 
 		data() {
@@ -217,6 +212,12 @@
 					progress: 'planning',
 				},
 			};
+		},
+
+		computed: {
+			departments() {
+				return this.$store.state.maintenance.departments;
+			},
 		},
 
 		methods: {

@@ -119,7 +119,7 @@
 									w-full"
 							>
 								<option
-									v-for="department in $props.departments"
+									v-for="department in $store.state.maintenance.departments"
 									:key="department.id"
 									:value="department.id"
 									v-text="department.title"
@@ -221,10 +221,6 @@
 				required: true,
 			},
 
-			departments: {
-				type: Array,
-				required: true,
-			},
 		},
 
 		data() {
