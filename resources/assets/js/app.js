@@ -19,9 +19,10 @@ Vue.filter('trans', (...args) => lang.get(...args));
 
 const store = new Vuex.Store({
 	mutations: {
-		init(state, { departments, tasks: list }) {
+		init(state, { departments, tasks: list, categories }) {
 			state.tasks.list = list; //eslint-disable-line
 			state.maintenance.departments = departments; //eslint-disable-line
+			state.maintenance.categories = categories; //eslint-disable-line
 		},
 	},
 
@@ -32,6 +33,7 @@ const store = new Vuex.Store({
 			commit('init', {
 				tasks: data.tasks.model.tasks,
 				departments: data.tasks.model.departments,
+				categories: data.tasks.model.categories,
 			});
 		},
 	},

@@ -8,7 +8,7 @@ export default {
 
 	getters: {
 		departments({ departments }) {
-			return departments;
+			return [...departments].sort(({ title: a }, { title: b }) => a.localeCompare(b));
 		},
 	},
 

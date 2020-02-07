@@ -188,6 +188,8 @@
 	</div>
 </template>
 <script>
+	import { mapGetters } from 'vuex';
+
 	import Form from '../../mixins/form';
 
 	export default {
@@ -214,11 +216,7 @@
 			};
 		},
 
-		computed: {
-			departments() {
-				return this.$store.state.maintenance.departments;
-			},
-		},
+		computed: mapGetters('maintenance', ['departments']),
 
 		methods: {
 			today() {
