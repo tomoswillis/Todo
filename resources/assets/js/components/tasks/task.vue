@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<showToday
-			:tasks="dueTodayList"
-			:departments="departments"
-		/>
+		<showToday />
 
 		<div
 			class="
@@ -66,30 +63,20 @@
 					</select>
 				</div>
 			</div>
-
-			<div
-				v-for="task in list"
-				:key="task.id"
-			>
-				<showToday
-					v-if="(task.due_date === $props.today)"
-				/>
-
-				<edit
-					:task="task"
-					:action="'/task/edit/' + task.id"
-					:departments="departments"
-				/>
-			</div>
+			<transitionGroup name="slide-fade">
+				<div
+					v-for="task in $store.state.tasks.list"
+					:key="task.id"
+				>
+					<edit :task="task" />
+				</div>
+			</transitionGroup>
 		</div>
-		<add-Task
-			:action="'/task/store'"
-		/>
+		<add-Task />
 	</div>
 </template>
 
 <script>
-
 	import Edit from './edit';
 	import addTask from './add-task';
 	import showToday from './show-today';
@@ -101,18 +88,6 @@
 			showToday,
 		},
 
-		props: {
-			departments: {
-				type: Array,
-				required: true,
-			},
-
-			initialList: {
-				type: Array,
-				required: true,
-			},
-		},
-
 		data() {
 			return {
 				editing: false,
@@ -121,18 +96,11 @@
 		},
 
 		computed: {
-			dueTodayList() {
-				return this.$store.state.list.filter(due => due.due_today === true);
-			},
 
 			list() {
-				return this.$store.state.list;
+				return this.$store.state.tasks.list;
 			},
 
-		},
-
-		mounted() {
-			this.$store.commit('updatelist', { list: this.$props.initialList });
 		},
 	};
 </script>

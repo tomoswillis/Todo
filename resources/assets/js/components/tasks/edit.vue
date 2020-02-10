@@ -119,7 +119,7 @@
 									w-full"
 							>
 								<option
-									v-for="department in $props.departments"
+									v-for="department in departments"
 									:key="department.id"
 									:value="department.id"
 									v-text="department.title"
@@ -182,7 +182,7 @@
 				v-if="!$data.editing"
 				class="text-white"
 				:class="{ 'opacity-50': $data.editing }"
-				@click.prevent="$store.dispatch('delete', { id: $props.task.id })"
+				@click.prevent="$store.dispatch('tasks/delete', { id: $props.task.id })"
 			>
 				<i class="fa fa-trash w3-large mx-3" />
 			</button>
@@ -191,7 +191,7 @@
 				v-if="$data.editing"
 				value="save"
 				class="px-10 rounded-xl tasks--department--bg flex-1"
-				@click="$store.dispatch('edit', { task: $data.form })"
+				@click="$store.dispatch('tasks/edit', { task: $data.form })"
 			>
 				Save
 			</button>
@@ -201,6 +201,7 @@
 
 
 <script>
+	import { mapGetters } from 'vuex';
 	import { DateTime } from 'luxon';
 
 	import Form from '../../mixins/form';
@@ -221,10 +222,6 @@
 				required: true,
 			},
 
-			departments: {
-				type: Array,
-				required: true,
-			},
 		},
 
 		data() {
@@ -242,9 +239,11 @@
 		},
 
 		computed: {
+			...mapGetters('maintenance', ['departments']),
+
 			date() {
 				return {
-					dayOfMonth: DateTime.fromISO(this.$data.form.due).day,
+					dayOfMonth: DateTime.fromISO(this.$data.form.due).toFormat('dd'),
 					month: DateTime.fromISO(this.$data.form.due).toFormat('LLLL'),
 				};
 			},

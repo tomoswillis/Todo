@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/task/list')
+    ->uses('Tasks\TaskController@list')
+    ->name('task.list');
+
 Route::post('/task/edit/{task}')
     ->uses('Tasks\TaskController@update')
     ->name('task.update');
@@ -22,6 +26,10 @@ Route::get('/department/delete/{department}')
     ->uses('Departments\DepartmentController@destroy')
     ->name('department.destroy');
 
+Route::post('/department/edit/{department}')
+    ->uses('Departments\DepartmentController@update')
+    ->name('department.update');
+
 Route::post('/category/store')
     ->uses('Categories\CategoryController@store')
     ->name('category.show');
@@ -29,3 +37,7 @@ Route::post('/category/store')
 Route::get('/category/delete/{category}')
     ->uses('Categories\CategoryController@destroy')
     ->name('category.destroy');
+
+Route::post('/category/edit/{category}')
+    ->uses('Categories\CategoryController@update')
+    ->name('category.update');

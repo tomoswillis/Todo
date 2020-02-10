@@ -1,12 +1,8 @@
 <template>
-	<div class="bg-grey-100 flex px-5 h-screen tasks--title">
+	<div class="px-5 h-screen tasks--title">
 		<div
 			class="
-				bg-white
-				mr-5
 				text-center
-				border
-				border-grey-500
 				min-w-screen
 			"
 		>
@@ -29,35 +25,48 @@
 			</div>
 		</div>
 
-		<div class="w-screen mt-5">
+		<div class=" mt-5">
 			<div>
 				<h2 class="tasks--title text-2xl mb-3">
 					{{ activeTable.heading }}
 				</h2>
 
-				<edit
-					v-bind="activeTable.edit"
-					@delete="deleteTask"
+				<addToTable
+					:type="selected"
 				/>
+
+				<h2 class="tasks--title text-2xl mb-3">
+					Current Entries
+				</h2>
+
+				<div
+					class="bg-transparent p-3 mt-2 rounded tasks--shadow ani"
+				>
+					<transitionGroup name="slide-fade">
+						<div
+							v-for="table in activeTable.edit.table"
+							:key="`${table.id}${$data.selected}`"
+							v-bind="activeTable.edit"
+						>
+							<edit
+								:table="table"
+								:type="selected"
+							/>
+						</div>
+					</transitionGroup>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
-
 	import edit from './edit';
+	import addToTable from './addToTable';
 
 	export default {
 		components: {
 			edit,
-		},
-
-		props: {
-			initialList: {
-				type: Object,
-				required: true,
-			},
+			addToTable,
 		},
 
 		data() {
@@ -75,15 +84,11 @@
 				const tableData = {
 					categories: {
 						heading: 'Add a Category',
-						inputAction: '/category/store',
-						action: '',
-						deleteItem: '/category/delete/',
+						type: 'category',
 					},
 					departments: {
 						heading: 'Add a Department',
-						inputAction: '/department/store',
-						action: '',
-						deleteItem: '/department/delete/',
+						type: 'department',
 					},
 				};
 
@@ -92,27 +97,10 @@
 				return {
 					heading: tableData[selected].heading,
 					edit: {
-						table: this.list[selected],
-						inputAction: tableData[selected].inputAction,
-						deleteSlug: tableData[selected].deleteItem,
-						action: tableData[selected].action,
-						whichSelected: selected,
+						table: this.$store.state.maintenance[selected],
+						type: tableData[selected].type,
 					},
 				};
-			},
-		},
-
-		mounted() {
-			this.$store.commit('mM/updateList', { list: this.$props.initialList });
-
-			// store.commit('a/increment');
-		},
-
-		methods: {
-			deleteTask(id) {
-				const index = this.$data.tables[this.$data.selected].findIndex(task => task.id === id);
-				this.$data.tables[this.$data.selected].splice(index, 1);
-				// console.log(this.$data.tables[this.$data.selected].findIndex(task => task.id === id));
 			},
 		},
 	};

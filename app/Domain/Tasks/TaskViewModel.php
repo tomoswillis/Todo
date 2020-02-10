@@ -4,6 +4,7 @@ namespace App\Domain\Tasks;
 
 use App\Domain\Departments\Department;
 use App\Domain\Users\User;
+use App\Domain\Categories\Category;
 
 use EngageInteractive\LaravelViewModels\ViewModel;
 
@@ -18,7 +19,7 @@ class TaskViewModel extends ViewModel
 
     public function tasks(): array
     {
-        $tasks = Task::with('department', 'user')
+        $tasks = Task::with('department', 'user', 'category')
             ->orderBy('due_date', $this->order)
             ->get()
             ->toArray();
@@ -38,6 +39,11 @@ class TaskViewModel extends ViewModel
     public function departments(): array
     {
         return Department::all()->toArray();
+    }
+
+    public function categories(): array
+    {
+        return Category::all()->toArray();
     }
 
     public function users(): array

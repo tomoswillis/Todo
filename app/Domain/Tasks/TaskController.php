@@ -13,14 +13,21 @@ class TaskController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
+    {
+        return view('app/task/list');
+    }
+
+    public function list(Request $request)
     {
         $order = $request->input('order') ?? 'asc';
 
         $model = new TaskViewModel($order);
 
-        return view('app/task/list')
-            ->with($model->array());
+        return [
+            'status' => 'success',
+            'tasks' => $model->array(),
+        ];
     }
 
     public function store(TaskRequest $request)

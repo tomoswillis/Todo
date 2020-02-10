@@ -7,6 +7,9 @@ import svg4everybody from 'svg4everybody';
 import './bootstrap';
 import lang from './i18n';
 
+import maintenance from './modules/maintenance';
+import tasks from './modules/tasks';
+
 import Task from './components/tasks/task';
 import Maintenance from './components/maintenance/maintenance';
 
@@ -45,57 +48,29 @@ const maintenanceModule = {
 
 
 const store = new Vuex.Store({
-	modules: {
-		mM: maintenanceModule,
-	},
-
-	state: {
-		list: [],
-	},
-
 	mutations: {
-		updatelist(state, payload) {
-			state.list = payload.list;
-		},
-
-		delete(state, { id }) {
-			const index = state.list.findIndex(task => task.id === id);
-			state.list.splice(index, 1);
-		},
-
-		addToList(state, { task }) {
-			state.list.push(task);
-		},
-
-		editList(state, { task }) {
-			const index = state.list.findIndex(list => list.id === task.id);
-			state.list.splice(index, 1, task);
+		init(state, { departments, tasks: list, categories }) {
+			state.tasks.list = list; //eslint-disable-line
+			state.maintenance.departments = departments; //eslint-disable-line
+			state.maintenance.categories = categories; //eslint-disable-line
 		},
 	},
 
 	actions: {
-		async push({ commit }, { task }) {
-			// TODO: check for errors
-			const response = await axios.post('/task/store', task);
+		async init({ commit }) {
+			const { data } = await axios.get('/task/list');
 
-			commit('addToList', { task: response.data.task });
+			commit('init', {
+				tasks: data.tasks.model.tasks,
+				departments: data.tasks.model.departments,
+				categories: data.tasks.model.categories,
+			});
 		},
+	},
 
-		async edit({ commit }, { task }) {
-			// TODO: check for errors
-			// console.log({ task });
-			const response = await axios.post(`/task/edit/${task.id}`, task);
-
-			commit('editList', { task: response.data.task });
-		},
-
-		async delete({ commit }, { id }) {
-			// TODO: check for errors
-			// console.log({ task });
-			await axios.get(`/tasks/delete/${id}`);
-
-			commit('delete', { id });
-		},
+	modules: {
+		maintenance,
+		tasks,
 	},
 });
 
@@ -111,5 +86,7 @@ new Vue({
 
 	mounted() {
 		svg4everybody();
+
+		this.$store.dispatch('init');
 	},
 });

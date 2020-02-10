@@ -121,12 +121,12 @@
 									h-10
 									w-full"
 							>
-								<option value="1">
-									UX
-								</option>
-								<option value="2">
-									Backend
-								</option>
+								<option
+									v-for="department in departments"
+									:key="department.id"
+									:value="department.id"
+									v-text="department.title"
+								/>
 							</select>
 						</div>
 					</div>
@@ -180,7 +180,7 @@
 							mt-5
 							tasks--form--add-task
 							rounded-lg"
-						@click="$store.dispatch('push', { task: $data.form })"
+						@click="addTask"
 					>
 				</div>
 			</form>
@@ -188,6 +188,8 @@
 	</div>
 </template>
 <script>
+	import { mapGetters } from 'vuex';
+
 	import Form from '../../mixins/form';
 
 	export default {
@@ -207,11 +209,30 @@
 				form: {
 					task: '',
 					description: '',
-					due: '2020-01-01',
+					due: this.today(),
 					department: '1',
 					progress: 'planning',
 				},
 			};
+		},
+
+		computed: mapGetters('maintenance', ['departments']),
+
+		methods: {
+			today() {
+				return new Date().toISOString().slice(0, 10);
+			},
+
+			addTask() {
+				this.$store.dispatch('tasks/push', { task: this.$data.form });
+				this.$data.form = {
+					task: '',
+					description: '',
+					due: this.today(),
+					department: '1',
+					progress: 'planning',
+				};
+			},
 		},
 	};
 </script>

@@ -7,10 +7,10 @@
         font-weight: 700;
 
     }
-   
+
     &--day{
-        font-weight: 800;  
-           
+        font-weight: 800;
+
     }
 
     &--month{
@@ -28,7 +28,7 @@
     &--department{
         font-family: rift-soft, sans-serif;
         font-weight: 500;
-        
+
         @apply
          tracking-wide
          ;
@@ -87,6 +87,16 @@
 
 }
 
+.maintenance{
+    font-family: objektiv-mk1, sans-serif;
+
+    &--save{
+        background-color:  #402c5f;
+        color: white;
+
+    }
+}
+
 .rounded-xl{
     border-radius: 1em;
 }
@@ -100,5 +110,23 @@
 
     background: rgb(224,224,224);
     background: linear-gradient(180deg, rgb(240, 240, 240) 0%, rgba(255,255,255,1) 100%);
- 
+
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.ani {
+    transition: all 5s;
 }
