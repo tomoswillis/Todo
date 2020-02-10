@@ -2,11 +2,12 @@
 
 @section('content')
 
-    @foreach($model['categories'] as $category)
+    @foreach($model['departments'] as $department)
         <ul>
             <li>
-                {{ $category['title'] }}
+                {{$department['title']}}
             </li>
         </ul>
     @endforeach
+
 @endsection

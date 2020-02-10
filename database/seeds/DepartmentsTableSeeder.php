@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategoriesTableSeeder extends Seeder
+class DepartmentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,12 +12,12 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('departments')->insert([
             [
-                'title' => 'Seeded Category 1',
+                'title' => 'UX',
             ],
             [
-                'title' => 'Seeded Category 2',
+                'title' => 'Backend',
             ]
         ]);
     }

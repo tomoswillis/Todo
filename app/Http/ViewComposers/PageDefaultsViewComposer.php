@@ -57,7 +57,7 @@ class PageDefaultsViewComposer extends BaseViewComposer
                 'type' => 'article',
 			],
 			'links' => [
-				'home' => route('home.show'),
+				'home' => route('task.index'),
             ],
         ];
     }

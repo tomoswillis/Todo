@@ -44,7 +44,7 @@ export default {
 				window.location = redirect;
 			} else {
 				this.$data.isError = false;
-				this.$data.form = {};
+				// this.$data.form = {};
 			}
 		},
 

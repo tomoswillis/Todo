@@ -1,58 +1,112 @@
 /* eslint-disable no-new */
 
 import Vue from 'vue';
+import Vuex from 'vuex';
 import svg4everybody from 'svg4everybody';
 
 import './bootstrap';
 import lang from './i18n';
 
-// Common
-import EButton from './components/common/button';
-import ELabel from './components/common/label';
-import ETable from './components/common/table';
-import Breadcrumb from './components/common/breadcrumb';
-import Icon from './components/common/icon';
-import IconText from './components/common/icon-text';
-import Pagination from './components/common/pagination';
-import Placeholder from './components/common/placeholder';
+import Task from './components/tasks/task';
+import Maintenance from './components/maintenance/maintenance';
 
-// Todo
-import App from './components/app';
-
-// Accounts
-// import ForgotPasswordForm from './components/accounts/forgot-password-form';
-// import LoginForm from './components/accounts/login-form';
-// import PasswordResetForm from './components/accounts/password-reset-form';
-// import RegisterForm from './components/accounts/register-form';
-// import ResendVerifyCodeForm from './components/accounts/resend-verify-code-form';
+Vue.use(Vuex);
 
 Vue.filter('trans', (...args) => lang.get(...args));
 
-// Global
-Vue.component('EButton', EButton);
-Vue.component('ELabel', ELabel);
-Vue.component('ETable', ETable);
-Vue.component('Breadcrumb', Breadcrumb);
-Vue.component('Icon', Icon);
-Vue.component('IconText', IconText);
-Vue.component('Pagination', Pagination);
-Vue.component('Placeholder', Placeholder);
-Vue.component('App', App);
+const maintenanceModule = {
+	namespaced: true,
+
+	state: {
+		list: [],
+	},
+
+	mutations: {
+		updateList(state, payload) {
+			state.list = payload.list;
+		},
+
+		delete(state, { id }) {
+			const index = state.list.findIndex(task => task.id === id);
+			state.list.splice(index, 1);
+		},
+	},
+
+	actions: {
+		async delete({ commit }, { id }) {
+			// TODO: check for errors
+			// console.log({ task });
+			await axios.get(`/tasks/delete/${id}`);
+
+			commit('delete', { id });
+		},
+	},
+};
+
+
+const store = new Vuex.Store({
+	modules: {
+		mM: maintenanceModule,
+	},
+
+	state: {
+		list: [],
+	},
+
+	mutations: {
+		updatelist(state, payload) {
+			state.list = payload.list;
+		},
+
+		delete(state, { id }) {
+			const index = state.list.findIndex(task => task.id === id);
+			state.list.splice(index, 1);
+		},
+
+		addToList(state, { task }) {
+			state.list.push(task);
+		},
+
+		editList(state, { task }) {
+			const index = state.list.findIndex(list => list.id === task.id);
+			state.list.splice(index, 1, task);
+		},
+	},
+
+	actions: {
+		async push({ commit }, { task }) {
+			// TODO: check for errors
+			const response = await axios.post('/task/store', task);
+
+			commit('addToList', { task: response.data.task });
+		},
+
+		async edit({ commit }, { task }) {
+			// TODO: check for errors
+			// console.log({ task });
+			const response = await axios.post(`/task/edit/${task.id}`, task);
+
+			commit('editList', { task: response.data.task });
+		},
+
+		async delete({ commit }, { id }) {
+			// TODO: check for errors
+			// console.log({ task });
+			await axios.get(`/tasks/delete/${id}`);
+
+			commit('delete', { id });
+		},
+	},
+});
 
 new Vue({
 	el: '#app',
+	store,
 
 	// Local
 	components: {
-		// App
-		// ForgotPasswordForm,
-		// LoginForm,
-		// PasswordResetForm,
-		// RegisterForm,
-		// ResendVerifyCodeForm,
-
-		// Styleguide
-		// ExampleStyleguideOnlyComponent,
+		Task,
+		Maintenance,
 	},
 
 	mounted() {

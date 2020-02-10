@@ -1,0 +1,16 @@
+.input-tab{
+
+    &--bg{
+        background: rgb(97,77,140);
+        background: linear-gradient(-180deg, rgba(97,77,140,1) 0%, rgba(89,70,129,1) 100%);
+    }
+
+    &--color{
+        background-color: #5f4c89;
+    }
+
+    transition: transformY(10px);
+    transform: translateY(-60px);
+
+
+}
